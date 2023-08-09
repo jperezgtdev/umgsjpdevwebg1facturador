@@ -20,14 +20,19 @@ function __construct()
 	}
 
     function insertar(){
+        $password= $this->input->post('pass');
+        $decod = base64_decode($password);
+
         $data = array(
             'usuario' => $this->input->post('usuario'),
             'correo' => $this->input->post('correo'),
-            'pass' => $this->input->post('pass'),
+            'pass' => sha1($decod), 
             'nombre' => $this->input->post('nombre'),
             'telefono' => $this->input->post('telefono')  ,  
             'fk_rol' => $this->input->post('fk_rol')  ,  
-            'estado' => $this->input->post('estado')   
+            'estado' => $this->input->post('estado') ,  
+            
+      
         );
     
 
@@ -44,7 +49,9 @@ function __construct()
             'nombre' => $this->input->post('edit_nombre'),
             'telefono' => $this->input->post('edit_telefono')  ,  
             'fk_rol' => $this->input->post('edit_fk_rol')  ,  
-            'estado' => $this->input->post('edit_estado')   
+            'estado' => $this->input->post('edit_estado')  
+            
+            
         );
 
 
@@ -62,5 +69,12 @@ function __construct()
         $this->usuarioModel->eliminarUsuario($id,$data);
         redirect('usuario/index');
     }
+
+/*	public function client(){
+
+		$password 	= $this->input->post('pass');
+		$decod = base64_decode($password);
+		$resultados = $this->usuarioModel->insertarUsuario( sha1($decod));
+	}*/
 
 }

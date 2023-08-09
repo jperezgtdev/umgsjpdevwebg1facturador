@@ -256,10 +256,10 @@ $(document).ready(function() {
 			console.log("Finalice");
 		}
 
+
+//eliminado logico
         $(".btn-eliminar").click(function() {
-
-            var c = $(this).data("id");
-
+         var c = $(this).data("id");
             $("#mensaje_id").val(c);
              });
 </script>
