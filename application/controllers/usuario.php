@@ -31,8 +31,8 @@ function __construct()
             'telefono' => $this->input->post('telefono')  ,  
             'fk_rol' => $this->input->post('fk_rol')  ,  
             'estado' => $this->input->post('estado') ,  
-            
-      
+            'fecha_creacion' => date('Y-m-d H:i:s'),
+            'usuario_creacion' => 'admon'
         );
     
 
@@ -49,9 +49,9 @@ function __construct()
             'nombre' => $this->input->post('edit_nombre'),
             'telefono' => $this->input->post('edit_telefono')  ,  
             'fk_rol' => $this->input->post('edit_fk_rol')  ,  
-            'estado' => $this->input->post('edit_estado')  
-            
-            
+            'estado' => $this->input->post('edit_estado')  ,
+            'fecha_mod' => date('Y-m-d H:i:s'),
+            'usuario_mod' => 'admon'
         );
 
 
