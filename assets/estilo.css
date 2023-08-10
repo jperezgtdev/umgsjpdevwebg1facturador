@@ -1,0 +1,40 @@
+body{
+    background-image: url(https://images4.alphacoders.com/715/71578.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+.formulario{
+    background: rgba(0, 0, 0, .5);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.568);
+    color: white;
+}
+.form-control{
+    background: rgba(0, 0, 0, .3); 
+    border-style: none;
+    transition: 0.5s ease-in; 
+    color: white;
+}
+.form-control:not(:placeholder-shown) {
+    color: white;
+  }
+.form-control:focus{
+    background: none;
+}
+.form-control::placeholder{
+    color: white;
+}
+.ingresar{
+    background: #09173b;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 700!important;
+    color: white;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.568);
+}
+.ingresar:hover{
+    color: #F9E79F;
+    
+}
