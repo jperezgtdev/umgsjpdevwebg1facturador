@@ -10,7 +10,7 @@ class model_login extends CI_Model {
 
     public function obtener_usuario_por_credenciales($usuario, $contraseña) {
         $this->db->where('usuario', $usuario);
-        $this->db->where('contraseña', $contraseña);
+        $this->db->where('pass', $contraseña);
         $query = $this->db->get('usuario');
 
         if ($query->num_rows() > 0) {
