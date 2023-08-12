@@ -39,11 +39,19 @@ class ClienteController extends CI_Controller{
             'nit' => $this->input->post('edit_nit'),
             'estado' => $this->input->post('edit_estado')
         );
-        print_r("hola mundo");
+        
         $id = $this->input->post('Eid_cliente');
         
         $this->ClienteModel->modificarCliente($data, $id);
         redirect('ClienteController/index');
     }
     
+    function eliminarCliente(){
+        $data=array(
+            'estado'=>0
+        );
+        $id = $this-> input->post('hdnEliminar');
+        $this->ClienteModel->eliminarCliente($id,$data);
+        redirect('ClienteController/index');
+    }
 }

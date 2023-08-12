@@ -35,11 +35,8 @@ function __construct()
             'usuario_creacion' => 'admon'
         );
     
-
         $this->usuarioModel->insertarUsuario($data);
         redirect('usuario/index');
-
-
     }
 
     function guardarEdicion(){
@@ -54,8 +51,6 @@ function __construct()
             'usuario_mod' => 'admon'
         );
 
-
-
         $id = $this-> input->post('id_usuario');
         $this->usuarioModel->modificarUsuario($data,$id);
         redirect('usuario/index');
@@ -69,12 +64,4 @@ function __construct()
         $this->usuarioModel->eliminarUsuario($id,$data);
         redirect('usuario/index');
     }
-
-/*	public function client(){
-
-		$password 	= $this->input->post('pass');
-		$decod = base64_decode($password);
-		$resultados = $this->usuarioModel->insertarUsuario( sha1($decod));
-	}*/
-
 }
