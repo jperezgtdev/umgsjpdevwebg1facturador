@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="telefono">Telefono</label>
-                                    <input type="text" class="form-control" name="telefono" id="telefono" required>
+                                    <input type="number" class="form-control" name="telefono" id="telefono" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="direccion">Direccion</label>
@@ -73,12 +73,10 @@
                                         <option value="0">Inactivo</option>
                                     </select>
                                 </div>
-                            
-                            
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit">Registrarse</button>
+                            <button type="submit" class="btn btn-primary">Registrarse</button>
                         </div>
                     </form>
                 </div>
@@ -235,6 +233,239 @@
             alert("Se ha modificado con exito el cliente");
         });
 
+        // Validación para que el campo nombre no acepte números ni se ingresen solo espacios en blanco - ingreso
+        $('#nombre').focusout(function(){
+            var regex = /^[a-zA-Z]+( [a-zA-Z]+)*$/;
+            
+            if (!regex.test($('#nombre').val())) {
+                $('#nombre').val("");
+                $('#nombre').css({
+                    "border-color": "red"
+                });
+                $('#nombre').attr("placeholder", "Nombre no válido");
+            }
+        });
+
+        $('#nombre').focus(function() {
+            $('#nombre').css({
+                "border-color": "" 
+            });
+            $('#nombre').attr("placeholder", "");
+        });
+
+        //validación para el campo de DPI - ingreso
+        $('#dpi').focusout(function(){
+            var regex = /^[0-9]{13}$/;
+            if (!regex.test($('#dpi').val())) {
+                $("#dpi").val("");
+                $('#dpi').css({
+                    "border-color": "red"
+                });
+                $('#dpi').attr("placeholder", "DPI no válido");
+            }
+        });
+
+        $('#dpi').focus(function() {
+            $('#dpi').css({
+                "border-color": "" 
+            });
+            $('#dpi').attr("placeholder", "");
+        });
+
+        //Validación para telefono - ingreso
+        $('#telefono').focusout(function(){
+            var regex = /^[0-9]{8}$/;
+            if (!regex.test($('#telefono').val())) {
+                $("#telefono").val("");
+                $('#telefono').css({
+                    "border-color": "red"
+                });
+                $('#telefono').attr("placeholder", "Teléfono no válido");
+            }
+        });
+
+        $('#telefono').focus(function() {
+            $('#telefono').css({
+                "border-color": "" 
+            });
+            $('#telefono').attr("placeholder", "");
+        });
+
+        //Validación para dirección - ingreso
+        $('#direccion').focusout(function(){
+            var regex = /^[a-zA-Z0-9\s\.,#-]+$/;
+            if (!regex.test($('#direccion').val())) {
+                $("#direccion").val("");
+                $('#direccion').css({
+                    "border-color": "red"
+                });
+                $('#direccion').attr("placeholder", "Dirección no válido");
+            }
+        });
+
+        $('#direccion').focus(function() {
+            $('#direccion').css({
+                "border-color": "" 
+            });
+            $('#direccion').attr("placeholder", "");
+        });
+
+        //Validación para nit - ingreso
+        $('#nit').focusout(function(){
+            var regex = /^[0-9]{6}$/;
+            if (!regex.test($('#nit').val())) {
+                $("#nit").val("");
+                $('#nit').css({
+                    "border-color": "red"
+                });
+                $('#nit').attr("placeholder", "NIT no válido");
+            }
+        });
+
+        $('#nit').focus(function() {
+            $('#nit').css({
+                "border-color": "" 
+            });
+            $('#nit').attr("placeholder", "");
+        });
+
+        //Validación estado - ingreso
+        $("#estado").focusout(function(){
+            if($("#estado").val() == 3){
+                $('#estado').css({
+                    "border-color": "red"
+                });
+            }
+        });
+
+        $('#estado').focus(function() {
+            $('#estado').css({
+                "border-color": "" 
+            });
+        });
+
+        // Validación para que el campo nombre no acepte números ni se ingresen solo espacios en blanco - editar
+        $('#edit_nombre').focusout(function(){
+            var regex = /^[a-zA-Z]+( [a-zA-Z]+)*$/;
+            
+            if (!regex.test($('#edit_nombre').val())) {
+                $('#edit_nombre').val("");
+                $('#edit_nombre').css({
+                    "border-color": "red"
+                });
+                $('#edit_nombre').attr("placeholder", "Nombre no válido");
+            }
+        });
+
+        $('#edit_nombre').focus(function() {
+            $('#edit_nombre').css({
+                "border-color": "" 
+            });
+            $('#edit_nombre').attr("placeholder", "");
+        });
+
+        //validación para el campo de DPI - editar
+        $('#edit_dpi').focusout(function(){
+            var regex = /^[0-9]{13}$/;
+            if (!regex.test($('#edit_dpi').val())) {
+                $("#edit_dpi").val("");
+                $('#edit_dpi').css({
+                    "border-color": "red"
+                });
+                $('#edit_dpi').attr("placeholder", "DPI no válido");
+            }
+        });
+
+        $('#edit_dpi').focus(function() {
+            $('#edit_dpi').css({
+                "border-color": "" 
+            });
+            $('#edit_dpi').attr("placeholder", "");
+        });
+
+        //Validación para telefono - editar
+        $('#edit_telefono').focusout(function(){
+            var regex = /^[0-9]{8}$/;
+            if (!regex.test($('#edit_telefono').val())) {
+                $("#edit_telefono").val("");
+                $('#edit_telefono').css({
+                    "border-color": "red"
+                });
+                $('#edit_telefono').attr("placeholder", "Teléfono no válido");
+            }
+        });
+
+        $('#edit_telefono').focus(function() {
+            $('#edit_telefono').css({
+                "border-color": "" 
+            });
+            $('#edit_telefono').attr("placeholder", "");
+        });
+
+        //Validación para dirección - editar
+        $('#edit_direccion').focusout(function(){
+            var regex = /^[a-zA-Z0-9\s\.,#-]+$/;
+            if (!regex.test($('#edit_direccion').val())) {
+                $("#edit_direccion").val("");
+                $('#edit_direccion').css({
+                    "border-color": "red"
+                });
+                $('#edit_direccion').attr("placeholder", "Dirección no válido");
+            }
+        });
+
+        $('#edit_direccion').focus(function() {
+            $('#edit_direccion').css({
+                "border-color": "" 
+            });
+            $('#edit_direccion').attr("placeholder", "");
+        });
+
+        //Validación para nit - editar
+        $('#edit_nit').focusout(function(){
+            var regex = /^[0-9]{6}$/;
+            if (!regex.test($('#edit_nit').val())) {
+                $("#edit_nit").val("");
+                $('#edit_nit').css({
+                    "border-color": "red"
+                });
+                $('#edit_nit').attr("placeholder", "NIT no válido");
+            }
+        });
+
+        $('#edit_nit').focus(function() {
+            $('#edit_nit').css({
+                "border-color": "" 
+            });
+            $('#edit_nit').attr("placeholder", "");
+        });
+
+        //Validación estado - editar
+        $("#edit_estado").focusout(function(){
+            if($("#edit_estado").val() == 3){
+                $('#edit_estado').css({
+                    "border-color": "red"
+                });
+            }
+        });
+
+        $('#edit_estado').focus(function() {
+            $('#edit_estado').css({
+                "border-color": "" 
+            });
+        });
+
+        $('#editarModal').on('hidden.bs.modal', function () {
+            $('#edit_nombre, #edit_dpi, #edit_telefono, #edit_direccion, #edit_nit, #edit_estado').css({
+                "border-color": ""
+            }).val(""); 
+        });
+
+        $('#exampleModal').on('hidden.bs.modal', function () {
+            $('#nombre, #dpi, #telefono, #direccion, #nit, #estado').css({
+                "border-color": ""
+            }).val(""); 
+        });
     </script>
 </body>
 </html>
