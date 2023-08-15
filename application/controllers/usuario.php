@@ -13,6 +13,8 @@ function __construct()
 	}
 
     public function index(){
+        //$roles = $this->usuarioModel->get_roles();
+        //$this->data['roles'] = $roles;
 		$resultados = $this->usuarioModel->getUsuarioData();
 		$this->data['resultados'] = $resultados;
 		$this->data['titulo'] = "Nuevo titulo";

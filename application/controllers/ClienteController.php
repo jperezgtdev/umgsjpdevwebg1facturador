@@ -23,7 +23,9 @@ class ClienteController extends CI_Controller{
             'telefono' => $this->input->post('telefono'),
             'direccion' => $this->input->post('direccion'),
             'nit' => $this->input->post('nit'),
-            'estado' => $this->input->post('estado')
+            'estado' => $this->input->post('estado'),
+            'fecha_creacion' => date('Y-m-d H:i:s'),
+            'usuario_creacion' => 'admon'
         );
         
         $this->ClienteModel->insertarCliente($data);
@@ -37,7 +39,9 @@ class ClienteController extends CI_Controller{
             'telefono' => $this->input->post('edit_telefono'),
             'direccion' => $this->input->post('edit_direccion'),
             'nit' => $this->input->post('edit_nit'),
-            'estado' => $this->input->post('edit_estado')
+            'estado' => $this->input->post('edit_estado'),
+            'fecha_mod' => date('Y-m-d H:i:s'),
+            'usuario_mod' => 'admon'
         );
         
         $id = $this->input->post('Eid_cliente');

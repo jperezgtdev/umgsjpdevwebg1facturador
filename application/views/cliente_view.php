@@ -26,7 +26,6 @@
         </div>
     </div>
 
-
     <div class="container">
         <br><br> 
 
@@ -69,7 +68,7 @@
                                 <div class="form-group">
                                     <label for="estado">Estado</label>
                                     <select class="form-select" name="estado" id="estado" required>
-                                        <option value="">Seleccione un estado</option>
+                                        <option value="3">Seleccione un estado</option>
                                         <option value="1">Activo</option>
                                         <option value="0">Inactivo</option>
                                     </select>
@@ -120,7 +119,7 @@
                         <div class="form-group">
                             <label for="edit_estado">Estado</label>
                             <select class="form-select" name="edit_estado" id="edit_estado" required>
-                                <option value="">Seleccione un estado</option>
+                                <option value="3">Seleccione un estado</option>
                                 <option value="1">Activo</option>
                                 <option value="0">Inactivo</option>
                             </select>
@@ -131,7 +130,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Guardar Cambios</button>
+                        <button type="submit" class="btn btn-primary" id="btnGuardarEditar" data-bs-dismiss="modal">Guardar Cambios</button>
                     </div>
                 </form>
             </div>
@@ -203,28 +202,39 @@
         });
 
         $(".btnEditar").click(function() {
-                var id = $(this).data("id");
-                var nombre = $(this).closest("tr").find("td:eq(0)").text();
-                var dpi = $(this).closest("tr").find("td:eq(1)").text();
-                var telefono = $(this).closest("tr").find("td:eq(2)").text();
-                var direccion = $(this).closest("tr").find("td:eq(3)").text();
-                var nit = $(this).closest("tr").find("td:eq(4)").text();
-                var estado = $(this).closest("tr").find("td:eq(5)").text();
+            var id = $(this).data("id");
+            var nombre = $(this).closest("tr").find("td:eq(0)").text();
+            var dpi = $(this).closest("tr").find("td:eq(1)").text();
+            var telefono = $(this).closest("tr").find("td:eq(2)").text();
+            var direccion = $(this).closest("tr").find("td:eq(3)").text();
+            var nit = $(this).closest("tr").find("td:eq(4)").text();
+            var estado = $(this).closest("tr").find("td:eq(5)").text();
 
-                $("#edit_nombre").val(nombre);
-                $("#edit_dpi").val(dpi);
-                $("#edit_telefono").val(telefono);
-                $("#edit_direccion").val(direccion);
-                $("#edit_nit").val(nit);
-                $("#edit_estado").val(estado);
-                $("#Eid").val(id);
-            });
+            $("#edit_nombre").val(nombre);
+            $("#edit_dpi").val(dpi);
+            $("#edit_telefono").val(telefono);
+            $("#edit_direccion").val(direccion);
+            $("#edit_nit").val(nit);
+            if(estado == 'Activo'){
+                $("#edit_estado").val(1);
+            }else if(estado == 'Inactivo'){
+                $("#edit_estado").val(0);
+            }else{
+                $("#edit_estado").val(3);
+            }
+            $("#Eid").val(id);
+        });
 
-            $(".btnEliminar").click(function(){
-                var id = $(this).data("id");
+        $(".btnEliminar").click(function(){
+            var id = $(this).data("id");
 
-                $("#hdnEliminar").val(id);
-            });
+            $("#hdnEliminar").val(id);
+        });
+
+        $("#btnGuardarEditar").click(function(){
+            alert("Se ha modificado con exito el cliente");
+        });
+
     </script>
 </body>
 </html>

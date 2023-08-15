@@ -12,6 +12,7 @@ class usuarioModel extends CI_Model{
     public function getUsuarioData(){
 		$this->db->select('id_usuario,usuario,correo,pass,nombre,telefono,fk_rol,estado');
 		$this->db->from('usuario');
+		//$this->db->join('roles', 'usuario.fk_rol = roles.id_rol');
         $this->db->where('estado','1');
     //$this->db->where('estado=1');
 		$query = $this->db->get();
@@ -25,14 +26,18 @@ class usuarioModel extends CI_Model{
 	public function modificarUsuario($data, $id) {
 		$this->db->where('id_usuario', $id);
 		$this->db->update('usuario', $data);
-	
 	}
 
 	public function eliminarUsuario($id,$data) {
-
 		$this->db->where('id_usuario', $id);
 		$this->db->update('usuario', $data);
-	
 	}
+
+	public function get_roles() {
+		$this->db->select('*');
+		$this->db->from('roles');
+        $query = $this->db->get();
+        return $query->result();
+    }
 	
 }
