@@ -30,7 +30,9 @@
     </div>
 
 <div class="container">
-    <h1>Formulario de Registro</h1>
+        <div class="d-flex justify-content-center">
+            <h1>Registro de usuario</h1>
+        </div>
     
     <br><br>
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Ingresar</button>
@@ -64,15 +66,16 @@
                         </div>
                         <div class="form-group">
                             <label for="telefono">Teléfono</label>
-                            <input type="tel" class="form-control" name="telefono" id="telefono" required>
+                            <input type="number" class="form-control" name="telefono" id="telefono" required>
                         </div>
                         <div class="form-group">
                             <label for="rol">Rol</label>
                             <select class="form-select" name="fk_rol" id="rol" required>
                                 <option value="0">seleccion un rol</option>
-                                <option value="1">Administrador</option>
-                                <option value="2">Operador</option>
-                                <option value="3">IT</option>
+                                <?php foreach($roles as $role) : ?>
+                                    <option value="<?php echo $role->id_rol; ?>"><?php echo $role->nombre_rol; ?></option>
+                                <?php endforeach; ?>
+
                             </select>
                         </div>
                         <div class="form-group">
@@ -111,32 +114,36 @@
         
                         <div class="form-group">
                             <label for="edit_usuario">Usuario</label>
-                            <input type="text" class="form-control" name="edit_usuario" id="edit_usuario2" >
+                            <input type="text" class="form-control" name="edit_usuario" id="edit_usuario2"  required>
                         </div>
                         <div class="form-group">
                             <label for="edit_correo">Correo</label>
-                            <input type="email" class="form-control" name="edit_correo" id="edit_correo2" >
+                            <input type="email" class="form-control" name="edit_correo" id="edit_correo2"required >
                         </div>
                         <div class="form-group">
                             <label for="edit_nombre">Nombre</label>
-                            <input type="text" class="form-control" name="edit_nombre" id="edit_nombre2" >
+                            <input type="text" class="form-control" name="edit_nombre" id="edit_nombre2" required>
                         </div>
                         <div class="form-group">
                             <label for="edit_telefono">Teléfono</label>
-                            <input type="tel" class="form-control" name="edit_telefono" id="edit_telefono2" >
+                            <input type="number" class="form-control" name="edit_telefono" id="edit_telefono2"required >
                         </div>
                         <div class="form-group">
                             <label for="edit_rol">Rol</label>
-                            <select class="form-select" name="edit_fk_rol" id="edit_rol2" >
+
+                      <select class="form-select" name="edit_fk_rol" id="edit_rol2">
                                 <option value="0">seleccion un rol</option>
-                                <option value="1">Administrador</option>
-                                <option value="2">Operador</option>
-                                <option value="3">IT</option>
+                                <?php foreach($roles as $role) : ?>
+                                    <option value="<?php echo $role->id_rol; ?>"><?php echo $role->nombre_rol; ?></option>
+                                <?php endforeach; ?>
+
                             </select>
+                            
                         </div>
                         <div class="form-group">
                             <label for="edit_estado">Estado</label>
                             <select class="form-select" name="edit_estado" id="edit_estado2" >
+                            <option value="3">Seleccione un estado</option>
                                 <option value="1">Activo</option>
                                 <option value="0">Inactivo</option>
                             </select>
@@ -202,7 +209,7 @@
                     <td><?php echo $row->nombre; ?></td>
                     <td><?php echo $row->telefono; ?></td>
                     <td><?php echo $row->correo; ?></td>
-                    <td><?php echo $row->fk_rol; ?></td>
+                    <td><?php echo $row->nombre_rol; ?></td>
                     <td><?php echo $row->estado; ?></td>
                     <td><button class="btn btn-primary btn-sm btn-editar"   data-bs-toggle="modal" data-bs-target="#editModal2"  data-id="<?php echo $row->id_usuario; ?>">Editar</button></td>
                     <td><button class="btn btn-danger btn-sm btn-eliminar"   data-bs-toggle="modal" data-bs-target="#eliminarModal"  data-id="<?php echo $row->id_usuario; ?>"   >Eliminar</button></td>
@@ -236,7 +243,15 @@ $(document).ready(function() {
         $("#edit_telefono2").val(telefono);
         $("#edit_correo2").val(correo);
         $("#edit_rol2").val(rol);
-        $("#edit_estado").val(estado);
+
+
+        if(estado == 'Activo'){
+                $("#edit_estado").val(1);
+            }else if(estado == 'Inactivo'){
+                $("#edit_estado").val(0);
+            }else{
+                $("#edit_estado").val(3);
+            }
         $("#Edi").val(id_usuario);
                 
     });
@@ -256,6 +271,178 @@ $(document).ready(function() {
         var c = $(this).data("id");
         $("#mensaje_id").val(c);
     });
+//VALIDA LOS FOCUS DEL PRIMER MODAL
+
+        // Validación para que el campo usuario no acepte números ni se ingresen solo espacios en blanco - ingreso
+        $('#usuario').focusout(function(){
+            var regex = /^[a-zA-Z]$/;
+            
+            if (!regex.test($('#usuario').val())) {
+                $('#usuario').val("");
+                $('#usuario').css({
+                    "border-color": "red"
+                });
+                $('#usuario').attr("placeholder", "usuario no válido");
+            }
+        });
+
+        $('#usuario').focus(function() {
+            $('#usuario').css({
+                "border-color": "" 
+            });
+            $('#usuario').attr("placeholder", "");
+        });
+        
+                // Validación para que el campo correo no acepte números ni se ingresen solo espacios en blanco - ingreso
+                $('#correo').focusout(function(){
+            var regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            
+            if (!regex.test($('#correo').val())) {
+                $('#correo').val("");
+                $('#correo').css({
+                    "border-color": "red"
+                });
+                $('#correo').attr("placeholder", "correo no válido");
+            }
+        });
+
+        $('#correo').focus(function() {
+            $('#correo').css({
+                "border-color": "" 
+            });
+            $('#correo').attr("placeholder", "");
+        });
+
+                // Validación para que el campo nombre no acepte números ni se ingresen solo espacios en blanco - ingreso
+                $('#nombre').focusout(function(){
+            var regex = /^[a-zA-Z]+( [a-zA-Z]+)*$/;
+            
+            if (!regex.test($('#nombre').val())) {
+                $('#nombre').val("");
+                $('#nombre').css({
+                    "border-color": "red"
+                });
+                $('#nombre').attr("placeholder", "Nombre no válido");
+            }
+        });
+
+        $('#nombre').focus(function() {
+            $('#nombre').css({
+                "border-color": "" 
+            });
+            $('#nombre').attr("placeholder", "");
+        });
+
+
+        
+                // Validación para que el campo telefono no acepte números ni se ingresen solo espacios en blanco - ingreso
+                $('#telefono').focusout(function(){
+            var regex = /^[a-zA-Z]+( [a-zA-Z]+)*$/;
+            
+            if (!regex.test($('#telefono').val())) {
+                $('#telefono').val("");
+                $('#telefono').css({
+                    "border-color": "red"
+                });
+                $('#telefono').attr("placeholder", "telefono no válido");
+            }
+        });
+
+        $('#telefono').focus(function() {
+            $('#telefono').css({
+                "border-color": "" 
+            });
+            $('#telefono').attr("placeholder", "");
+        });
+
+
+//VALIDA LOS FOCUS DEL SEGUNDO MODAL
+
+
+
+        // Validación para que el campo usuario no acepte números ni se ingresen solo espacios en blanco - ingreso
+        $('#edit_usuario2').focusout(function(){
+            var regex = /^[a-zA-Z]$/;
+            
+            if (!regex.test($('#edit_usuario2').val())) {
+                $('#edit_usuario2').val("");
+                $('#edit_usuario2').css({
+                    "border-color": "red"
+                });
+                $('#edit_usuario2').attr("placeholder", "usuario no válido");
+            }
+        });
+
+        $('#edit_usuario2').focus(function() {
+            $('#edit_usuario2').css({
+                "border-color": "" 
+            });
+            $('#edit_usuario2').attr("placeholder", "");
+        });
+        
+                // Validación para que el campo correo no acepte números ni se ingresen solo espacios en blanco - ingreso
+                $('#edit_correo2').focusout(function(){
+            var regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            
+            if (!regex.test($('#edit_correo2').val())) {
+                $('#edit_correo2').val("");
+                $('#edit_correo2').css({
+                    "border-color": "red"
+                });
+                $('#edit_correo2').attr("placeholder", "correo no válido");
+            }
+        });
+
+        $('#edit_correo2').focus(function() {
+            $('#edit_correo2').css({
+                "border-color": "" 
+            });
+            $('#edit_correo2').attr("placeholder", "");
+        });
+
+                // Validación para que el campo nombre no acepte números ni se ingresen solo espacios en blanco - ingreso
+                $('#edit_nombre2').focusout(function(){
+            var regex = /^[a-zA-Z]+( [a-zA-Z]+)*$/;
+            
+            if (!regex.test($('#edit_nombre2').val())) {
+                $('#edit_nombre2').val("");
+                $('#edit_nombre2').css({
+                    "border-color": "red"
+                });
+                $('#edit_nombre2').attr("placeholder", "Nombre no válido");
+            }
+        });
+
+        $('#edit_nombre2').focus(function() {
+            $('#edit_nombre2').css({
+                "border-color": "" 
+            });
+            $('#edit_nombre2').attr("placeholder", "");
+        });
+
+
+        
+                // Validación para que el campo telefono no acepte números ni se ingresen solo espacios en blanco - ingreso
+                $('#edit_telefono2').focusout(function(){
+            var regex = /^[a-zA-Z]+( [a-zA-Z]+)*$/;
+            
+            if (!regex.test($('#edit_telefono2').val())) {
+                $('#edit_telefono2').val("");
+                $('#edit_telefono2').css({
+                    "border-color": "red"
+                });
+                $('#edit_telefono2').attr("placeholder", "telefono no válido");
+            }
+        });
+
+        $('#edit_telefono2').focus(function() {
+            $('#edit_telefono2').css({
+                "border-color": "" 
+            });
+            $('#edit_telefono2').attr("placeholder", "");
+        });
+
+
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 
