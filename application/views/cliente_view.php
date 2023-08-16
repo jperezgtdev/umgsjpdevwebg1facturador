@@ -6,6 +6,14 @@
     <title>Mostrar Datos de Prueba</title>
 </head>
 <body>
+<br><br>
+    <div class="logout sidebar-heading d-flex justify-content-end align-items-center" style="font-size: 15px; margin-right: 20px;">
+    <span>Cerrar Sesión</span>
+    <a href="<?= site_url('controlador_login/logout')?>">
+        <i class="fa-solid fa-right-from-bracket fa-2xl"></i>
+    </a>
+    </div>
+    
     <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" class="btn btn-primary d-flex align-items-center">
         <img src="<?php echo base_url('imagenes/menu.png'); ?>" style="width: 30px; height: 30px; margin-right: 10px;" class="mr-1" alt="Menú">
         Abrir Menú
