@@ -34,9 +34,9 @@
             <h1>Registro de usuario</h1>
         </div>
     
-    <br><br>
+    <br>
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Ingresar</button>
-
+    <br><br>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -224,9 +224,9 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-$(document).ready(function() {
-    
-});
+    $(document).ready(function() {
+        
+    });
 
     $(".btn-editar").click(function() {
         console.log("Botón Editar clickeado");
@@ -242,20 +242,25 @@ $(document).ready(function() {
         $("#edit_nombre2").val(nombre);
         $("#edit_telefono2").val(telefono);
         $("#edit_correo2").val(correo);
-        $("#edit_rol2").val(rol);
-
+        $("#edit_rol2").find("option").each(function() {
+            if ($(this).text() === rol) {
+                $(this).prop("selected", true); 
+                return false;
+            }
+        });
 
         if(estado == 'Activo'){
-                $("#edit_estado").val(1);
-            }else if(estado == 'Inactivo'){
-                $("#edit_estado").val(0);
-            }else{
-                $("#edit_estado").val(3);
-            }
+            $("#edit_estado2").val(1);
+        }else if(estado == 'Inactivo'){
+            $("#edit_estado2").val(0);
+        }else{
+            $("#edit_estado2").val(3);
+        }
         $("#Edi").val(id_usuario);
                 
     });
-//cifrar la contraseña
+
+    //cifrar la contraseña
 
     function cifrarpass(){
 	    var pass = $("#pass").val();
@@ -275,7 +280,7 @@ $(document).ready(function() {
 
         // Validación para que el campo usuario no acepte números ni se ingresen solo espacios en blanco - ingreso
         $('#usuario').focusout(function(){
-            var regex = /^[a-zA-Z]$/;
+            var regex = /^[a-zA-Z]+$/;
             
             if (!regex.test($('#usuario').val())) {
                 $('#usuario').val("");
@@ -293,8 +298,8 @@ $(document).ready(function() {
             $('#usuario').attr("placeholder", "");
         });
         
-                // Validación para que el campo correo no acepte números ni se ingresen solo espacios en blanco - ingreso
-                $('#correo').focusout(function(){
+        // Validación para que el campo correo no acepte números ni se ingresen solo espacios en blanco - ingreso
+        $('#correo').focusout(function(){
             var regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             
             if (!regex.test($('#correo').val())) {
@@ -313,8 +318,8 @@ $(document).ready(function() {
             $('#correo').attr("placeholder", "");
         });
 
-                // Validación para que el campo nombre no acepte números ni se ingresen solo espacios en blanco - ingreso
-                $('#nombre').focusout(function(){
+        // Validación para que el campo nombre no acepte números ni se ingresen solo espacios en blanco - ingreso
+        $('#nombre').focusout(function(){
             var regex = /^[a-zA-Z]+( [a-zA-Z]+)*$/;
             
             if (!regex.test($('#nombre').val())) {
@@ -333,11 +338,9 @@ $(document).ready(function() {
             $('#nombre').attr("placeholder", "");
         });
 
-
-        
-                // Validación para que el campo telefono no acepte números ni se ingresen solo espacios en blanco - ingreso
-                $('#telefono').focusout(function(){
-            var regex = /^[a-zA-Z]+( [a-zA-Z]+)*$/;
+        // Validación para que el campo telefono no acepte números ni se ingresen solo espacios en blanco - ingreso
+        $('#telefono').focusout(function(){
+            var regex = /^[0-9]{8}$/;
             
             if (!regex.test($('#telefono').val())) {
                 $('#telefono').val("");
@@ -356,13 +359,11 @@ $(document).ready(function() {
         });
 
 
-//VALIDA LOS FOCUS DEL SEGUNDO MODAL
-
-
+        //VALIDA LOS FOCUS DEL SEGUNDO MODAL
 
         // Validación para que el campo usuario no acepte números ni se ingresen solo espacios en blanco - ingreso
         $('#edit_usuario2').focusout(function(){
-            var regex = /^[a-zA-Z]$/;
+            var regex = /^[a-zA-Z]+$/;
             
             if (!regex.test($('#edit_usuario2').val())) {
                 $('#edit_usuario2').val("");
@@ -380,8 +381,8 @@ $(document).ready(function() {
             $('#edit_usuario2').attr("placeholder", "");
         });
         
-                // Validación para que el campo correo no acepte números ni se ingresen solo espacios en blanco - ingreso
-                $('#edit_correo2').focusout(function(){
+        // Validación para que el campo correo no acepte números ni se ingresen solo espacios en blanco - ingreso
+        $('#edit_correo2').focusout(function(){
             var regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             
             if (!regex.test($('#edit_correo2').val())) {
@@ -400,8 +401,8 @@ $(document).ready(function() {
             $('#edit_correo2').attr("placeholder", "");
         });
 
-                // Validación para que el campo nombre no acepte números ni se ingresen solo espacios en blanco - ingreso
-                $('#edit_nombre2').focusout(function(){
+        // Validación para que el campo nombre no acepte números ni se ingresen solo espacios en blanco - ingreso
+        $('#edit_nombre2').focusout(function(){
             var regex = /^[a-zA-Z]+( [a-zA-Z]+)*$/;
             
             if (!regex.test($('#edit_nombre2').val())) {
@@ -420,11 +421,9 @@ $(document).ready(function() {
             $('#edit_nombre2').attr("placeholder", "");
         });
 
-
-        
-                // Validación para que el campo telefono no acepte números ni se ingresen solo espacios en blanco - ingreso
-                $('#edit_telefono2').focusout(function(){
-            var regex = /^[a-zA-Z]+( [a-zA-Z]+)*$/;
+        // Validación para que el campo telefono no acepte números ni se ingresen solo espacios en blanco - ingreso
+        $('#edit_telefono2').focusout(function(){
+            var regex = /^[0-9]{8}$/;
             
             if (!regex.test($('#edit_telefono2').val())) {
                 $('#edit_telefono2').val("");

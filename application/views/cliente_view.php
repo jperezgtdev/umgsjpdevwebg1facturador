@@ -38,7 +38,7 @@
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form action="<?php echo site_url('ClienteController/insertar'); ?>" method="post">
+                    <form id="fRegistroCliente" action="<?php echo site_url('ClienteController/insertar'); ?>" method="post">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Registro</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="telefono">Telefono</label>
-                                    <input type="number" class="form-control" name="telefono" id="telefono" required>
+                                    <input type="text" class="form-control" name="telefono" id="telefono" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="direccion">Direccion</label>
@@ -76,7 +76,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-primary">Registrarse</button>
+                            <button type="button" class="btn btn-primary" id="btnRegistrarse">Registrarse</button>
                         </div>
                     </form>
                 </div>
@@ -86,7 +86,7 @@
         <div class="modal fade" id="editarModal" tabindex="-1" role="dialog" aria-labelledby="editarModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="<?php echo site_url('ClienteController/guardarEdicion'); ?>" method="post">
+                <form id="fEditarCliente" action="<?php echo site_url('ClienteController/guardarEdicion'); ?>" method="post">
                     <div class="modal-header">
                         <h5 class="modal-title" id="editarModalLabel">Editar Cliente</h5>
                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
@@ -96,23 +96,23 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="edit_nombre">Nombre</label>
-                            <input type="text" class="form-control" id="edit_nombre" name="edit_nombre">
+                            <input type="text" class="form-control" id="edit_nombre" name="edit_nombre" required>
                         </div>
                         <div class="form-group">
                             <label for="edit_dpi">DPI</label>
-                            <input type="text" class="form-control" id="edit_dpi" name="edit_dpi">
+                            <input type="text" class="form-control" id="edit_dpi" name="edit_dpi" required>
                         </div>
                         <div class="form-group">
                             <label for="edit_telefono">Teléfono</label>
-                            <input type="text" class="form-control" id="edit_telefono" name="edit_telefono">
+                            <input type="text" class="form-control" id="edit_telefono" name="edit_telefono" required>
                         </div>
                         <div class="form-group">
                             <label for="edit_direccion">Dirección</label>
-                            <input type="text" class="form-control" id="edit_direccion" name="edit_direccion">
+                            <input type="text" class="form-control" id="edit_direccion" name="edit_direccion" required>
                         </div>
                         <div class="form-group">
                             <label for="edit_nit">NIT</label>
-                            <input type="text" class="form-control" id="edit_nit" name="edit_nit">
+                            <input type="text" class="form-control" id="edit_nit" name="edit_nit" required>
                         </div>
                         <div class="form-group">
                             <label for="edit_estado">Estado</label>
@@ -128,7 +128,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary" id="btnGuardarEditar" data-bs-dismiss="modal">Guardar Cambios</button>
+                        <button type="button" class="btn btn-primary" id="btnGuardarEditar">Guardar Cambios</button>
                     </div>
                 </form>
             </div>
@@ -229,8 +229,33 @@
             $("#hdnEliminar").val(id);
         });
 
+        function camposEstanLlenos(idForm) {
+            var todosLlenos = true;
+            $("#" + idForm + " input[type='text']").each(function() {
+                if ($(this).val() === "") {
+                    todosLlenos = false;
+                    return false; 
+                }
+            });
+            return todosLlenos;
+        }
+
         $("#btnGuardarEditar").click(function(){
-            alert("Se ha modificado con exito el cliente");
+            if(camposEstanLlenos("fEditarCliente") && $("#edit_estado").val() != 3){
+                $("#fEditarCliente").submit();
+                alert("Se ha modificado con exito el cliente");
+            }else{
+                alert("Debe completar todos los campos y seleccionar un estado valido");
+            }
+        });
+
+        $("#btnRegistrarse").click(function(){
+            if(camposEstanLlenos("fRegistroCliente") && $("#estado").val() != 3){
+                $("#fRegistroCliente").submit();
+                alert("Se ha registrado con exito el cliente");
+            }else{
+                alert("Debe completar todos los campos y seleccionar un estado valido");
+            }
         });
 
         // Validación para que el campo nombre no acepte números ni se ingresen solo espacios en blanco - ingreso
