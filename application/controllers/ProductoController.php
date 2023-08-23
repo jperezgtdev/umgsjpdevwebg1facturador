@@ -1,49 +1,65 @@
+
+
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-
-class ProductoController extends CI_Controller{
-
-    function __construct()
+    defined('BASEPATH') OR exit('No direct script access allowed');
+    
+    class ProductoController extends CI_Controller{
+    
+ 
+function __construct()
 	{
 		parent::__construct();
-	//	$this->load->model('ProductoModel');
+		$this->load->model('ProductoModel');
 	}
 
     public function index(){
-	/*	$resultados = $this->ProductoModel->getAllClient();
+		$resultados = $this->ProductoModel->getProductoData();
 		$this->data['resultados'] = $resultados;
-		$this->data['titulo'] = "Nuevo titulo";*/
-    $this->load->view('Producto_view'/*, $this->data*/);
+		$this->data['titulo'] = "Nuevo titulo";
+		$this->load->view('Producto_view', $this->data);
 	}
 
-/*    function insertar(){
+
+    function insertar(){
         $data = array(
+            'id_producto' => $this->input->post('id_producto'),
+            'fk_categoria' => $this->input->post('fk_categoria'),
             'nombre' => $this->input->post('nombre'),
-            'dpi' => $this->input->post('dpi'),
-            'telefono' => $this->input->post('telefono'),
-            'direccion' => $this->input->post('direccion'),
-            'nit' => $this->input->post('nit'),
-            'estado' => $this->input->post('estado')
+            'costo' => $this->input->post('costo'),
+            'unidades' => $this->input->post('unidades'),
+            'estado' => $this->input->post('estado'),
+            'fecha_creacion' => date('Y-m-d H:i:s'),
+            'usuario_creacion' => 'admon'
         );
         
-        $this->ProductoModel->insertarCliente($data);
+        $this->ProductoModel->insertarProducto($data);
         redirect('ProductoController/index');
     }
 
+
     function guardarEdicion(){
         $data = array(
+            'id_producto' => $this->input->post('edit_id_producto'),
+            'fk_categoria' => $this->input->post('edit_fk_categoria'),
             'nombre' => $this->input->post('edit_nombre'),
-            'dpi' => $this->input->post('edit_dpi'),
-            'telefono' => $this->input->post('edit_telefono'),
-            'direccion' => $this->input->post('edit_direccion'),
-            'nit' => $this->input->post('edit_nit'),
-            'estado' => $this->input->post('edit_estado')
+            'costo' => $this->input->post('edit_costo')  ,  
+            'unidades' => $this->input->post('edit_unidades')  ,  
+            'estado' => $this->input->post('edit_estado')  ,
+            'fecha_mod' => date('Y-m-d H:i:s'),
+            'usuario_mod' => 'admon'
         );
-        print_r("hola mundo");
-        $id = $this->input->post('Eid_cliente');
-        
-        $this->ClienteModel->modificarCliente($data, $id);
+
+        $id = $this-> input->post('id_producto');
+        $this->ProductoModel->modificarProducto($data,$id);
         redirect('ProductoController/index');
-    }*/
-    
+    }
+
+    function eliminarProducto(){
+        $data=array(
+            'estado'=>0
+        );
+        $id = $this-> input->post('mEliminar');
+        $this->ProductoModel->eliminarProducto($id,$data);
+        redirect('ProductoController/index');
+    }
 }

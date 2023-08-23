@@ -12,29 +12,29 @@ function __construct()
 		parent::__construct();
 	}
 
-    public function getUsuarioData(){
-		$this->db->select('id_usuario,usuario,correo,pass,nombre,telefono,fk_rol,estado');
-		$this->db->from('usuario');
+    public function getProductoData (){
+		$this->db->select('id_producto,fk_categoria,nombre,costo,unidades,estado');
+		$this->db->from('producto');
         $this->db->where('estado','1');
     //$this->db->where('estado=1');
 		$query = $this->db->get();
 		return $query->result();
 	}
 
-    public function insertarUsuario($data){
-        $this->db->insert('usuario',$data);
+    public function insertarProducto($data){
+        $this->db->insert('producto',$data);
     }
 
-	public function modificarUsuario($data, $id) {
-		$this->db->where('id_usuario', $id);
-		$this->db->update('usuario', $data);
+	public function modificarProducto($data, $id) {
+		$this->db->where('id_producto', $id);
+		$this->db->update('producto', $data);
 	
 	}
 
-	public function eliminarUsuario($id,$data) {
+	public function eliminarProducto($id,$data) {
 
-		$this->db->where('id_usuario', $id);
-		$this->db->update('usuario', $data);
+		$this->db->where('id_producto', $id);
+		$this->db->update('producto', $data);
 	
 	}
 	

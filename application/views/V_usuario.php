@@ -21,10 +21,13 @@
         </div>
         <div class="offcanvas-body" style="background-color: #0c1375;">
             <div class="text-center">
-                <p><a href="<?= site_url('ClienteController/index')?>" class="text-white"><img src="<?php echo base_url('imagenes/cliente.png'); ?>" style="width: 30px; height: 30px; margin-right: 10px;" class="mr-1">Clientes</a></p>
+            <p><a href="<?= site_url('ClienteController/index')?>" class="text-white"><img src="<?php echo base_url('imagenes/cliente.png'); ?>" style="width: 30px; height: 30px; margin-right: 10px;" class="mr-1">Clientes</a></p>
             </div>
             <div class="text-center">
             <p><a href="<?= site_url('usuario/index')?>" class="text-white"><img src="<?php echo base_url('imagenes/usuario.png'); ?>" style="width: 30px; height: 30px; margin-right: 10px;" class="mr-1">Usuarios</a></p>
+            </div>
+            <div class="text-center">
+            <p><a href="<?= site_url('ProductoController/index')?>" class="text-white"><img src="<?php echo base_url('imagenes/producto.png'); ?>" style="width: 30px; height: 30px; margin-right: 10px;" class="mr-1">Usuarios</a></p>
             </div>
         </div>
     </div>
@@ -237,7 +240,7 @@
         var correo = $(this).closest("tr").find("td:eq(3)").text();
         var rol = $(this).closest("tr").find("td:eq(4)").text();
         var estado = $(this).closest("tr").find("td:eq(5)").text();
-
+debugger  ;
         $("#edit_usuario2").val(usuario);
         $("#edit_nombre2").val(nombre);
         $("#edit_telefono2").val(telefono);
