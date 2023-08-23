@@ -18,8 +18,18 @@ function __construct()
         $this->db->where('estado','1');
     //$this->db->where('estado=1');
 		$query = $this->db->get();
+
+		$result = array();
+        foreach ($query->result() as $row) {
+            $estado = ($row->estado == 1) ? 'Activo' : 'Inactivo';
+            $row->estado = $estado;
+            $result[] = $row;
+        }
+    
 		return $query->result();
 	}
+
+
 
     public function insertarProducto($data){
         $this->db->insert('producto',$data);

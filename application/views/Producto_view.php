@@ -1,13 +1,23 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="crossorigin="anonymous">
 
     <title>Producto</title>
 </head>
 <body>
+    <br><br>
+
+    <div class="logout sidebar-heading d-flex justify-content-end align-items-center" style="font-size: 15px; margin-right: 20px;">
+    <span>Cerrar Sesión</span>
+    <a href="<?= site_url('controlador_login/logout')?>">
+    <i class="fa-solid fa-right-from-bracket fa-2xl"></i>
+    </a>
+    </div>
 
     <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" class="btn btn-primary d-flex align-items-center">
         <img src="<?php echo base_url('imagenes/menu.png'); ?>" style="width: 30px; height: 30px; margin-right: 10px;" class="mr-1" alt="Menú">
@@ -27,7 +37,7 @@
             <p><a href="<?= site_url('usuario/index')?>" class="text-white"><img src="<?php echo base_url('imagenes/usuario.png'); ?>" style="width: 30px; height: 30px; margin-right: 10px;" class="mr-1">Usuarios</a></p>
             </div>
             <div class="text-center">
-            <p><a href="<?= site_url('ProductoController/index')?>" class="text-white"><img src="<?php echo base_url('imagenes/producto.png'); ?>" style="width: 30px; height: 30px; margin-right: 10px;" class="mr-1">Usuarios</a></p>
+            <p><a href="<?= site_url('ProductoController/index')?>" class="text-white"><img src="<?php echo base_url('imagenes/producto.png'); ?>" style="width: 30px; height: 30px; margin-right: 10px;" class="mr-1">Producto</a></p>
             </div>
         </div>
     </div>
@@ -224,6 +234,7 @@
             $("#edit_nombre").val(nombre);
             $("#edit_costo").val(costo);
             $("#edit_unidades").val(unidades);
+            
             if(estado == 'Activo'){
                 $("#edit_estado").val(1);
             }else if(estado == 'Inactivo'){
@@ -269,7 +280,7 @@ debugger;
         
         //Validación para costo - ingreso
         $('#costo').focusout(function(){
-            var regex = /^[0-9]{8}$/;
+            var regex = /^[0-9]{4}$/;
             if (!regex.test($('#costo').val())) {
                 $("#costo").val("");
                 $('#costo').css({
@@ -289,7 +300,7 @@ debugger;
 
         //Validación para unidades - ingreso
                 $('#unidades').focusout(function(){
-            var regex = /^[0-9]{8}$/;
+            var regex = /^[0-9]{4}$/;
             if (!regex.test($('#unidades').val())) {
                 $("#unidades").val("");
                 $('#unidades').css({
@@ -331,7 +342,7 @@ debugger;
         
         //Validación para costo - ingreso
         $('#edit_costo').focusout(function(){
-            var regex = /^[0-9]{8}$/;
+            var regex = /^[0-9]{4}$/;
             if (!regex.test($('#edit_costo').val())) {
                 $("#edit_costo").val("");
                 $('#edit_costo').css({
@@ -351,7 +362,7 @@ debugger;
 
         //Validación para unidades - ingreso
                 $('#edit_unidades').focusout(function(){
-            var regex = /^[0-9]{8}$/;
+            var regex = /^[0-9]{4}$/;
             if (!regex.test($('#edit_unidades').val())) {
                 $("#edit_unidades").val("");
                 $('#edit_unidades').css({
