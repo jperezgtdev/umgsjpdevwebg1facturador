@@ -42,7 +42,7 @@ class controlador_login extends CI_Controller {
     public function logout() {
         // Cerrar sesión y redirigir al formulario de inicio de sesión
         $this->session->sess_destroy();
-        redirect('auth');
+        redirect('controlador_login');
     }
 
 }
