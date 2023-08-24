@@ -191,7 +191,7 @@
                             <td><?php echo $row->direccion; ?></td>
                             <td><?php echo $row->nit; ?></td>
                             <td><?php echo $row->estado; ?></td>
-                            <td><button class="btn btn-primary btn-sm btnEditar" data-bs-toggle="modal" data-bs-target="#editarModal" data-id="<?php echo $row->id_cliente; ?>">Editar</button></td>
+                            <td><button class="btn btn-primary btn-sm btnEditar" onclick="Alerta()" data-bs-toggle="modal" data-bs-target="#editarModal" data-id="<?php echo $row->id_cliente; ?>">Editar</button></td>
                             <td><button class="btn btn-danger btn-sm btnEliminar" data-bs-toggle="modal" data-bs-target="#eliminarModal" data-id="<?php echo $row->id_cliente; ?>">Eliminar</button></td>
                         </tr>
                     <?php endforeach; ?>
@@ -239,7 +239,22 @@
         });
 
         $("#btnGuardarEditar").click(function(){
-            alert("Se ha modificado con exito el cliente");
+            //alert("Se ha modificado con exito el cliente");
+            if(camposEstanLlenos("fEditarCliente") && $("#edit_estado").val() != 3){
+                $("#fEditarCliente").submit();
+                alert("Se ha modificado con exito el cliente");
+            }else{
+                alert("Debe completar todos los campos y seleccionar un estado valido");
+            }
+        });
+
+        $("#btnRegistrarse").click(function(){
+            if(camposEstanLlenos("fRegistroCliente") && $("#estado").val() != 3){
+                $("#fRegistroCliente").submit();
+                alert("Se ha registrado con exito el cliente");
+            }else{
+                alert("Debe completar todos los campos y seleccionar un estado valido");
+            }
         });
 
         // Validación para que el campo nombre no acepte números ni se ingresen solo espacios en blanco - ingreso
@@ -475,6 +490,19 @@
                 "border-color": ""
             }).val(""); 
         });
+
+        function Alerta() {
+            debugger;
+            var alertDiv = document.createElement('div');
+            alertDiv.classList.add('alert', 'alert-success', 'mt-3');
+            alertDiv.textContent = '¡Alerta de Bootstrap!';
+
+            document.querySelector('.container').appendChild(alertDiv);
+
+            setTimeout(function() {
+                alertDiv.remove();
+            }, 700); 
+        }
     </script>
 </body>
 </html>
