@@ -117,16 +117,22 @@
               </li>
             </ul>
           </li>
-
           <li class="nav-item">
                 <a href="<?= site_url('VentaController/index')?>" class="nav-link">
                 <img src="<?= base_url('imagenes/venta.png') ?>" style="width: 20px; height: 20px;">
                   <p>Venta</p>
                 </a>
+            </li>
+          </ul>
+        </li>
+          <li class="nav-item">
+                <a href="<?= site_url('DFacturaController/index')?>" class="nav-link">
+                <img src="<?= base_url('imagenes/detallefactura.png') ?>" style="width: 20px; height: 20px;">
+                  <p>Detalle de Facturas</p>
+                </a>
               </li>
             </ul>
           </li>
-          
           <li class="nav-header">USUARIO</li>
 
           <li class="nav-item">
