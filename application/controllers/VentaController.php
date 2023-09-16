@@ -55,4 +55,16 @@ class VentaController extends CI_Controller{
         header('Content-Type: application/json');
         echo json_encode($response);
     }
+
+    public function buscarCliente()
+    {
+        $opcion = $this->input->get('opcion');
+        $resupuesta =$this->VentaModel->ClienteData($opcion);
+        $response = array (
+            'respuesta'=>$resupuesta
+        );
+        header('Content-Type: application/json');
+        echo json_encode($response);
+
+    }
 }

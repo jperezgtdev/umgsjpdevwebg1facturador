@@ -9,13 +9,10 @@ $this->load->view('templates/header');
         <div class="row">      
                 <div class="col-md-5">
                     <br><br>
-                    <form action="<?php echo site_url('VentaController/index'); ?>" method="POST">
-                                
-                            <label for="NIT">NIT</label>
-                            <input type="text" name="numNit" id="NIT">
-                            <input type="submit" value="Buscar" class="btn btn-primary"  id="btn-buscar" ></input>
-                    </form>
-                        <br>
+                    <label for="NIT">NIT</label>
+                    <input type="text" name="numNit" id="NIT">
+                    <button type="button" value="Buscar" class="btn btn-primary"  id="btn-buscar" >Buscar</button>
+                    <br>
                     <div class="form-group">
                         <label for="fk_producto">Producto</label>    
                         <select class="form-select" name="fk_producto" id="fk_producto" required style="width: 200px;">
@@ -44,25 +41,28 @@ $this->load->view('templates/header');
                 </div>
 
                 <div class="col-md-6">
-                    <form action="<?php echo site_url('VentaController/agregarFac'); ?>" method="POST">
-                        <br><br>
-                        <?php foreach ($cliente as $cl): ?>
+                    <!--<form action="<?php echo site_url('VentaController/agregarFac'); ?>" method="POST">
+                        <br><br>-->
                             <label for="NombreCliente">Nombre</label>
-                            <input type="text" name="NombreCliente" id="NombreCliente" disabled value="<?php echo $cl->nombre; ?>"><br>
+                            <input type="text" name="NombreCliente" id="NombreCliente"><br>
+
                             <label for="NitCliente">NIT</label>
-                            <input type="text" name="NitCliente" id="NitCliente" disabled value="<?php echo $cl->nit; ?>"><br>
-                            <input type="hidden" id="idcliente"  value="<?php echo $cl->id_cliente; ?>" name="idcliente"><br>
-                            <input type="hidden" name="id_factura" value="5"> <!-- SE AGREGA LA FACTURA-->
+                            <input type="text" name="NitCliente" id="NitCliente"><br>
+
+                            <input type="hidden" id="idcliente" name="idcliente"><br>
+                            
+                            <input type="hidden" name="id_factura" value=""> <!-- SE AGREGA LA FACTURA-->
+
                             <label for="Factura">No.Factura</label>
                             <input type="text" name="Factura" id="Factura" disabled><br>
+
                             <label for="Usuario">Usuario</label>
                             <input type="text" name="Usuario" id="Usuario" disabled><br>
-                        <?php endforeach; ?>
 
                         <br><br>
 
                         <div tabla-container>
-                            <table class="table table-hover table-bordered table-striped" id="tabla">
+                            <table  id="tabla">
                                 <thead>
                                     <tr>
                                         <th>Cantidad</th>
@@ -89,7 +89,7 @@ $this->load->view('templates/header');
                         <div>
                             <input type="submit" class="btn btn-primary" value="Realizar Venta" id ="btn-genVenta"></input>
                         </div>
-                    </form>
+                    <!--</form>-->
                 </div>
 
         </div>
@@ -162,8 +162,8 @@ $("#btn-agregar").click(function(){
 function eliminar() {
 
     var row = $("#btnEliminar").closest("tr");
-    var precio = parseFloat(row.find("td:eq(2)").text());
-
+    var precio = parseFloat(row.find("td:eq(3)").text());
+    debugger;
     // Restar el precio de la fila eliminada del total
     var totalActual = parseFloat($("[name='Total']").val()) || 0;
     totalActual -= precio;
@@ -188,6 +188,7 @@ $("#fk_producto").change(function(){
                 opcion: opcionSeleccionada
             },
             success: function(response) {
+                debugger;
                $("#unidades").val(response.respuesta[0].unidades);
                $("#costo").val(response.respuesta[0].costo);
             },
@@ -222,7 +223,27 @@ $("#fk_producto").change(function(){
         });
 
 
-  
+    $('#btn-buscar').on('click', function () {
+        var NomNit = $('#NIT').val();
+        //var Registro = new FormData();
+        debugger;
+        $.ajax({
+            type: "GET",
+            url: "<?php echo site_url('VentaController/buscarCliente');?>",
+            dataType: "json",
+            data: {
+                opcion: NomNit
+            },
+            success: function(response) {
+                debugger;
+               $("#NombreCliente").val(response.respuesta[0].nombre);
+               $("#NitCliente").val(response.respuesta[0].nit);
+            },
+            error: function(xhr) {
+                console.log("Error en la petición");
+            }
+        });
+    });
 
     
 </script>

@@ -51,5 +51,12 @@ public function obtenerNombrePorNIT($nit) {
         $this->db->insert('factura',$data);
     }
 
+    public function ClienteData($opcion){
+        $this->db->select ('id_cliente,nombre,nit');
+        $this->db->from('cliente');
+        $this->db->where ('nit',$opcion);
+        $query=$this->db->get();
+        return $query->result();
 
+    }
 }
