@@ -5,8 +5,6 @@ $this->load->view('templates/header');
 
 <div class="container">  
     <br>
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar Categoria</button>
-    <br><br>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -109,6 +107,7 @@ $this->load->view('templates/header');
     <div class="card">
         <div class="card-body">
             <h1 class="card-title" style="font-weight: bold; font-size: 20px;ss">Categoria de Productos</h1>
+            <button class="btn btn-primary" style="float: right;" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar Categoria</button>
             <br>
             <hr>
             <table class="table table-hover table-bordered table-striped" id="tabla">
@@ -136,7 +135,7 @@ $this->load->view('templates/header');
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
 <script>
     $(document).ready(function() {

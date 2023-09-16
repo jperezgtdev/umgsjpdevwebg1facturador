@@ -1,11 +1,9 @@
 <?php
 $this->load->view('templates/header');
 ?>
-<h1 class="text-center">Listado de Ventas Realizadas</h1>
-
     <!-- Segundo modal de edición -->
     <div class="modal fade" id="modalver" tabindex="-1" aria-labelledby="editModal2Label" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
         
                     <div class="modal-header">
@@ -20,7 +18,7 @@ $this->load->view('templates/header');
                                 <div style="display: inline-block; width: 100px; margin-right: 10px;">
                                     <label for="nombrev">Nombre</label>
                                 </div>
-                                <div style="display: inline-block;">
+                                <div class="col-md-12" style="display: inline-block;">
                                     <input type="text" class="form-control" name="nombrev" id="nombrev"  required>
                                 </div>
                             </div>
@@ -134,9 +132,11 @@ $this->load->view('templates/header');
         </div>
     </div>
 
-
-    <div class="card">
+    <br>
+    
+    <div class="card" >
         <div class="card-body">
+            <h1 class="card-title" style="font-weight: bold; font-size: 20px;">Listado de Ventas Realizadas</h1>
             <br>
             <hr>
 
@@ -171,7 +171,7 @@ $this->load->view('templates/header');
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
 <script>
     $(".btn-eliminar").click(function(){
@@ -187,10 +187,6 @@ integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4B
 crossorigin="anonymous"></script>
 
 <script>
-
-$(document).ready(function() {
-    //$('.table').DataTable();
-});
 
 function verdata() {
     var id = $(this).data("id");

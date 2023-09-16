@@ -3,8 +3,7 @@ $this->load->view('templates/header');
 ?>
     <div class="container">
         <br>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar Cliente</button>
-        <br><br>
+
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -132,43 +131,47 @@ $this->load->view('templates/header');
 
         <div class="card">
             <div class="card-body">
-                <h1 class="card-title" style="font-weight: bold; font-size: 20px;ss">Clientes</h1>
+                <h1 class="card-title" style="font-weight: bold; font-size: 20px;">Clientes</h1>
+                <button class="btn btn-primary" style="float: right;" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar Cliente</button>
                 <br>
                 <hr>
-                <table class="table table-hover table-bordered table-striped">
-                    <tr>
-                        <th>Nombre</th>
-                        <th>DPI</th>
-                        <th>Telefono</th>
-                        <th>Dirección</th>
-                        <th>NIT</th>
-                        <th>Estado</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    <?php foreach ($resultados as $row): ?>
+                <table class="table table-hover table-bordered table-striped" id="tabla">
+                    <thead>
                         <tr>
-                            <td><?php echo $row->nombre; ?></td>
-                            <td><?php echo $row->dpi; ?></td>
-                            <td><?php echo $row->telefono; ?></td>
-                            <td><?php echo $row->direccion; ?></td>
-                            <td><?php echo $row->nit; ?></td>
-                            <td><?php echo $row->estado; ?></td>
-                            <td><button class="btn btn-primary btn-sm btnEditar" onclick="Alerta()" data-bs-toggle="modal" data-bs-target="#editarModal" data-id="<?php echo $row->id_cliente; ?>">Editar</button></td>
-                            <td><button class="btn btn-danger btn-sm btnEliminar" data-bs-toggle="modal" data-bs-target="#eliminarModal" data-id="<?php echo $row->id_cliente; ?>">Eliminar</button></td>
+                            <th>Nombre</th>
+                            <th>DPI</th>
+                            <th>Telefono</th>
+                            <th>Dirección</th>
+                            <th>NIT</th>
+                            <th>Estado</th>
+                            <th></th>
+                            <th></th>
                         </tr>
-                    <?php endforeach; ?>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($resultados as $row): ?>
+                            <tr>
+                                <td><?php echo $row->nombre; ?></td>
+                                <td><?php echo $row->dpi; ?></td>
+                                <td><?php echo $row->telefono; ?></td>
+                                <td><?php echo $row->direccion; ?></td>
+                                <td><?php echo $row->nit; ?></td>
+                                <td><?php echo $row->estado; ?></td>
+                                <td><button class="btn btn-primary btn-sm btnEditar" onclick="" data-bs-toggle="modal" data-bs-target="#editarModal" data-id="<?php echo $row->id_cliente; ?>">Editar</button></td>
+                                <td><button class="btn btn-danger btn-sm btnEliminar" data-bs-toggle="modal" data-bs-target="#eliminarModal" data-id="<?php echo $row->id_cliente; ?>">Eliminar</button></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <script>
 
         $(document).ready(function() {
-            //$('.table').DataTable();
+           
         });
 
         $(".btnEditar").click(function() {
@@ -467,6 +470,10 @@ $this->load->view('templates/header');
             }, 700); 
         }
     </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" 
+crossorigin="anonymous"></script>
 
 <?php
 $this->load->view('templates/footer');

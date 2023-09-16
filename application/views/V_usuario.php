@@ -6,8 +6,7 @@ $this->load->view('templates/header');
 <div class="container">
     
     <br>
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar Usuario</button>
-    <br><br>
+ 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -144,7 +143,7 @@ $this->load->view('templates/header');
                         <!-- Campos de edición para el segundo modal -->
         
                         <div class="form-group">
-                            <label id="mensaje">¿desea eliminar el usuario?</label>
+                            <label id="mensaje">¿Desea eliminar el usuario?</label>
                             <input type="hidden" name ="mEliminar" id="mensaje_id">
 
                         </div>
@@ -161,7 +160,8 @@ $this->load->view('templates/header');
 
     <div class="card">
         <div class="card-body">
-            <h1 class="card-title" style="font-weight: bold; font-size: 20px;ss">Usuarios</h1>
+            <h1 class="card-title" style="font-weight: bold; font-size: 20px;">Usuarios</h1>
+            <button class="btn btn-primary" style="float: right;" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar Usuario</button>
             <br>
             <hr>
             <table class="table table-hover table-bordered table-striped" id="tabla">
@@ -178,26 +178,23 @@ $this->load->view('templates/header');
                     </tr>
                 </thead>
                 <tbody>
-                <?php foreach  ($resultados as $row): ?>
-                    <tr>
-                        <td><?php echo $row->usuario; ?></td>
-                        <td><?php echo $row->nombre; ?></td>
-                        <td><?php echo $row->telefono; ?></td>
-                        <td><?php echo $row->correo; ?></td>
-                        <td><?php echo $row->nombre_rol; ?></td>
-                        <td><?php echo $row->estado; ?></td>
-                        <td><button class="btn btn-primary btn-sm btn-editar"   data-bs-toggle="modal" data-bs-target="#editModal2"  data-id="<?php echo $row->id_usuario; ?>">Editar</button></td>
-                        <td><button class="btn btn-danger btn-sm btn-eliminar"   data-bs-toggle="modal" data-bs-target="#eliminarModal"  data-id="<?php echo $row->id_usuario; ?>"   >Eliminar</button></td>
-                    </tr>
-                <?php endforeach; ?>
-
+                    <?php foreach  ($resultados as $row): ?>
+                        <tr>
+                            <td><?php echo $row->usuario; ?></td>
+                            <td><?php echo $row->nombre; ?></td>
+                            <td><?php echo $row->telefono; ?></td>
+                            <td><?php echo $row->correo; ?></td>
+                            <td><?php echo $row->nombre_rol; ?></td>
+                            <td><?php echo $row->estado; ?></td>
+                            <td><button class="btn btn-primary btn-sm btn-editar"   data-bs-toggle="modal" data-bs-target="#editModal2"  data-id="<?php echo $row->id_usuario; ?>">Editar</button></td>
+                            <td><button class="btn btn-danger btn-sm btn-eliminar"   data-bs-toggle="modal" data-bs-target="#eliminarModal"  data-id="<?php echo $row->id_usuario; ?>"   >Eliminar</button></td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
     $(document).ready(function() {

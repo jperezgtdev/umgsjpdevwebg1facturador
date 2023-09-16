@@ -14,15 +14,49 @@
       <!-- /.control-sidebar -->
     </div>
 <!-- ./wrapper -->
-
+<!--
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- jQuery -->
+ jQuery 
 <script src="<?= base_url('assets/plugins/jquery/jquery.min.js') ?>"></script>
-<!-- jQuery UI 1.11.4 -->
+jQuery UI 1.11.4 
 <script src="<?= base_url('assets/plugins/jquery-ui/jquery-ui.min.js') ?>"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+ Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
+<!-- INICIO DATATABLES -->
+<script>
+    $(document).ready(function() {
+        $('.table').DataTable({
+            "language": {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando _START_ al _END_ de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando 0 al 0 de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":      "Primero",
+                    "sLast":       "Último",
+                    "sNext":       "Siguiente",
+                    "sPrevious":   "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna descendente"
+                }
+            }
+        });
+    });
+</script>
+<!-- FIN DATATABLES -->
+
 <script>
   $.widget.bridge('uibutton', $.ui.button)
 </script>
