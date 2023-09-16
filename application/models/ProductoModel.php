@@ -13,9 +13,10 @@ function __construct()
 	}
 
     public function getProductoData (){
-		$this->db->select('id_producto,fk_categoria,nombre,costo,unidades,estado');
+		$this->db->select('producto.id_producto,categorias.nombre as nombre_categoria,producto.nombre,producto.costo,producto.unidades,producto.estado');
 		$this->db->from('producto');
-        $this->db->where('estado','1');
+		$this->db->join('categorias', 'producto.fk_categoria = categorias.id_categoria');
+        $this->db->where('producto.estado','1');
     //$this->db->where('estado=1');
 		$query = $this->db->get();
 
@@ -47,5 +48,14 @@ function __construct()
 		$this->db->update('producto', $data);
 	
 	}
+
+	public function get_categorias() {
+		$this->db->select('*');
+		$this->db->from('categorias');
+        $query = $this->db->get();
+        return $query->result();
+    }
 	
+	
+
 }

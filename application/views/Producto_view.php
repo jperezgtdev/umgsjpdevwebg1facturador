@@ -4,8 +4,12 @@ $this->load->view('templates/header');
 ?>
 
 <div class="container">
+        <div class="d-flex justify-content-center">
+            <h1>Producto</h1>
+        </div>
+    
     <br>
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar Producto</button>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Ingresar</button>
     <br><br>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -17,12 +21,22 @@ $this->load->view('templates/header');
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
+                    
+                         <div class="form-group">
+                            <label for="fk_categoria">Categoria</label>
+                            <select class="form-select" name="fk_categoria" id="fk_categoria" required>
+                                <option value="0">seleccion una categoria</option>
+                                <?php foreach($categorias as $categoria) : ?>
+                                    <option value="<?php echo $categoria->id_categoria; ?>"><?php echo $categoria->nombre; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
        
-                        <div class="form-group">
-                            <label for="fk_categoria">fk_categoria</label>
+                       <!--<div class="form-group">
+                            <label for="fk_categoria">Categoria</label>
                             <input type="text" class="form-control" name="fk_categoria" id="fk_categoria" required >
                         </div>
+                        -->
                         <div class="form-group">
                             <label for="nombre">Nombre</label>
                             <input type="text" class="form-control" name="nombre" id="nombre" required>
@@ -70,12 +84,24 @@ $this->load->view('templates/header');
                     </div>
                     <div class="modal-body">
                         <!-- Campos de edición para el segundo modal -->
-        
-         
+                                
                         <div class="form-group">
-                            <label for="edit_fk_categoria">fk_categoria</label>
+                            <label for="edit_fk_categoria">Categoria</label>
+                            <select class="form-select" name="edit_fk_categoria" id="edit_fk_categoria" required>
+                                <option value="0">seleccion una categoria</option>
+                                <?php foreach($categorias as $categoria) : ?>
+                                    <option value="<?php echo $categoria->id_categoria; ?>"><?php echo $categoria->nombre; ?></option>
+                                <?php endforeach; ?>
+
+                            </select>
+                        </div>
+
+                        <!--
+                        <div class="form-group">
+                            <label for="edit_fk_categoria">Categoria</label>
                             <input type="text" class="form-control" name="edit_fk_categoria" id="edit_fk_categoria"required >
                         </div>
+                         -->
                         <div class="form-group">
                             <label for="edit_nombre">Nombre</label>
                             <input type="text" class="form-control" name="edit_nombre" id="edit_nombre" required>
@@ -110,7 +136,7 @@ $this->load->view('templates/header');
         </div>
     </div>
 
-    <!-- tercer modal de edición -->
+    <!-- tercer modal de eliminar -->
     <div class="modal fade" id="eliminarModal" tabindex="-1" aria-labelledby="editModal2Label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -138,40 +164,35 @@ $this->load->view('templates/header');
         </div>
     </div>
 
-    <div class="card">
-        <div class="card-body">
-            <h1 class="card-title" style="font-weight: bold; font-size: 20px;ss">Productos</h1>
-            <br>
-            <hr>
-            <table class="table table-hover table-bordered table-striped" id="tabla">
-                <thead>
-                    <tr>
-                        <th>Categoria</th>
-                        <th>Nombre</th>
-                        <th>Costo</th>
-                        <th>Unidades</th>
-                        <th>Estado</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php foreach  ($resultados as $row): ?>
-                    <tr>
-                    
-                        <td><?php echo $row->fk_categoria; ?></td>
-                        <td><?php echo $row->nombre; ?></td>
-                        <td><?php echo $row->costo; ?></td>
-                        <td><?php echo $row->unidades; ?></td>
-                        <td><?php echo $row->estado; ?></td>
-                        <td><button class="btn btn-primary btn-sm btn-editar"   data-bs-toggle="modal" data-bs-target="#editModal2"  data-id="<?php echo $row->id_producto; ?>">Editar</button></td>
-                        <td><button class="btn btn-danger btn-sm btn-eliminar"   data-bs-toggle="modal" data-bs-target="#eliminarModal"  data-id="<?php echo $row->id_producto; ?>"   >Eliminar</button></td>
-                    </tr>
-                <?php endforeach; ?>
+    <div id="tabla-container">
+        <table class="table table-hover table-bordered table-striped" id="tabla">
+            <thead>
+                <tr>
+                    <th>Categoria</th>
+                    <th>Nombre</th>
+                    <th>Costo</th>
+                    <th>Unidades</th>
+                    <th>Estado</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach  ($resultados as $row): ?>
+                <tr>
+                
+                    <td><?php echo $row->nombre_categoria; ?></td>
+                    <td><?php echo $row->nombre; ?></td>
+                    <td><?php echo $row->costo; ?></td>
+                    <td><?php echo $row->unidades; ?></td>
+                    <td><?php echo $row->estado; ?></td>
+                    <td><button class="btn btn-primary btn-sm btn-editar"   data-bs-toggle="modal" data-bs-target="#editModal2"  data-id="<?php echo $row->id_producto; ?>">Editar</button></td>
+                    <td><button class="btn btn-danger btn-sm btn-eliminar"   data-bs-toggle="modal" data-bs-target="#eliminarModal"  data-id="<?php echo $row->id_producto; ?>"   >Eliminar</button></td>
+                </tr>
+            <?php endforeach; ?>
 
-                </tbody>
-            </table>
-        </div>
+            </tbody>
+        </table>
     </div>
 </div>
 
@@ -183,7 +204,7 @@ $this->load->view('templates/header');
             //$('.table').DataTable();
         });
 
-        $(".btnEditar").click(function() {
+        $(".btn-editar").click(function() {
             var id_producto = $(this).data("id");
             var fk_categoria = $(this).closest("tr").find("td:eq(0)").text();
             var nombre = $(this).closest("tr").find("td:eq(1)").text();
@@ -204,12 +225,11 @@ $this->load->view('templates/header');
             }else{
                 $("#edit_estado").val(3);
             }
-            $("#Eid").val(id);
+            $("#Edi").val(id_producto);
         });
 
         $(".btn-eliminar").click(function(){
-            var id = $(this).data("id");
-debugger;
+
             $("#hdnEliminar").val(id);
         });
         
@@ -348,6 +368,8 @@ debugger;
 integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" 
 crossorigin="anonymous"></script>
 
+
 <?php
 $this->load->view('templates/footer');
 ?>
+

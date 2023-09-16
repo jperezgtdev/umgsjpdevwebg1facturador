@@ -12,6 +12,9 @@ function __construct()
 	}
 
     public function index(){
+        $categorias = $this->ProductoModel->get_categorias();
+        $this->data['categorias'] = $categorias;
+        
 		$resultados = $this->ProductoModel->getProductoData();
 		$this->data['resultados'] = $resultados;
 		$this->data['titulo'] = "Nuevo titulo";
@@ -61,4 +64,8 @@ function __construct()
         $this->ProductoModel->eliminarProducto($id,$data);
         redirect('ProductoController/index');
     }
+
+
+
+
 }
