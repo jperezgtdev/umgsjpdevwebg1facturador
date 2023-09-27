@@ -27,8 +27,15 @@ class controlador_login extends CI_Controller {
 
         if ($user_data) {
             // Si el usuario existe, almacenar la información del usuario en la sesión
-            $this->session->set_userdata('id_usuario', $user_data->id);
-            $this->session->set_userdata('nombre', $user_data->usuario);
+            //$this->session->set_userdata('id_usuario', $user_data->id);
+            //$this->session->set_userdata('nombre', $user_data->usuario);
+
+            $newdata = array(
+                'id_usuario' => $user_data->id,
+                'usuario' => $user_data->usuario,
+                'logged_in' => TRUE
+            );
+            $this->session->set_userdata($newdata);
 
             // Redirigir a la página de inicio después del inicio de sesión exitoso
             redirect('usuario');
