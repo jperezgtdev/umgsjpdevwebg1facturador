@@ -15,7 +15,7 @@ $this->load->view('templates/header');
                     <br>
                     <div class="form-group">
                         <label for="fk_producto">Producto</label>    
-                        <select class="form-select" name="fk_producto" id="fk_producto" required style="width: 200px;">
+                        <select class="form-select" name="fk_producto" id="fk_producto" required style="width: 200px;" disabled>
                             <option value="0">Selecciona un producto</option>
                             <?php foreach($productos as $producto): ?>
                                 <option value="<?= $producto->id_producto; ?>"><?= $producto->nombre; ?></option>
@@ -66,6 +66,7 @@ $this->load->view('templates/header');
                                 <thead>
                                     <tr>
                                         <th>Cantidad</th>
+                                        <th hidden>id_producto</th>
                                         <th>Descripcion</th>
                                         <th>Precio Unitario</th>
                                         <th>Subtotal</th>
@@ -84,7 +85,7 @@ $this->load->view('templates/header');
                     
                         <br><br>
                         <Label for="Total">Total</Label>
-                        <input type="text" name="Total" disabled>
+                        <input type="text" name="Total" id="total" disabled>
                         <br><br>
                         <div>
                             <input type="submit" class="btn btn-primary" value="Realizar Venta" id ="btn-genVenta"></input>
@@ -101,40 +102,57 @@ $this->load->view('templates/header');
         $(document).ready(function() {
        
         });
-        
-        function BuscarPorNit() {
-        $.ajax({
-            type: "GET",
-            url: "<?php echo base_url('VentaController/buscar');?>",
-            dataType: "json",
-            data: {
-                NIT: $("#NIT").val()
-            },
-            success: function(response) {
-                try {
-                    if (response.nombre && response.nit && response.id_cliente) {
-                        $("#NombreCliente").val(response.nombre);
-                        $("#NitCliente").val(response.nit);
-                        $("#idcliente").val(response.id_cliente);
-                    } else {
-                        // Si no se encontraron datos, puedes mostrar un mensaje o realizar otra acción.
-                        console.log("No se encontraron datos.");
-                    }
-                } catch (error) {
-                    console.log("Error en el manejo de la respuesta JSON:", error);
-                }
-            },
-            error: function(xhr, textStatus, errorThrown) {
-                console.log("Error en la petición AJAX:");
-                console.log('textStatus:', textStatus);
-                console.log('errorThrown:', errorThrown);
+
+        function generarCadenaAleatoria() {
+            const caracteresLetras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const caracteresNumeros = '0123456789';
+            let cadena = '';
+
+            // Genera las dos letras aleatorias
+            for (let i = 0; i < 2; i++) {
+                const indiceAleatorio = Math.floor(Math.random() * caracteresLetras.length);
+                cadena += caracteresLetras.charAt(indiceAleatorio);
             }
+
+            // Genera los cuatro números aleatorios
+            for (let i = 0; i < 4; i++) {
+                const indiceAleatorio = Math.floor(Math.random() * caracteresNumeros.length);
+                cadena += caracteresNumeros.charAt(indiceAleatorio);
+            }
+
+            return cadena;
+        }
+        
+        $('#btn-buscar').on('click', function () {
+            var NomNit = $('#NIT').val();
+            //var Registro = new FormData();
+            debugger;
+            $.ajax({
+                type: "GET",
+                url: "<?php echo site_url('VentaController/buscarCliente');?>",
+                dataType: "json",
+                data: {
+                    opcion: NomNit
+                },
+                success: function(response) {
+                    debugger;
+                    $("#NombreCliente").val(response.respuesta[0].nombre);
+                    $("#NitCliente").val(response.respuesta[0].nit);
+                    $("#idcliente").val(response.respuesta[0].id_cliente);
+
+                    $("#Factura").val(generarCadenaAleatoria);
+
+                },
+                error: function(xhr) {
+                    console.log("Error en la petición");
+                }
+            });
         });
-    };
 
 
 $("#btn-agregar").click(function(){
     var producto = $("#fk_producto option:selected").text();
+    var id_producto = $("#fk_producto").val();
     var precio = $("#costo").val();
     var unidades = $("#V_unidades").val();
     var precioTotalProducto = parseFloat(precio) * parseFloat(unidades);
@@ -143,6 +161,7 @@ $("#btn-agregar").click(function(){
     // Agregar a la tabla
     var newRow = $("<tr>");
     newRow.append($("<td>").text(unidades));
+    newRow.append($("<td hidden>").text(id_producto));
     newRow.append($("<td>").text(producto));
     newRow.append($("<td>").text(precio));
     newRow.append($("<td>").text(precioTotalProducto));
@@ -244,6 +263,88 @@ $("#fk_producto").change(function(){
             }
         });
     });
+
+    $("#btn-genVenta").off('click').on('click',function(){
+        facturar();
+        detalleFac();
+    });
+
+    function facturar(){
+        var dato = $("#idcliente").val();
+        var noFac = $("#Factura").val();
+        debugger;
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url('VentaController/insertarEncabezado');?>",
+            dataType: "json",
+            data:{
+                opcion: dato,
+                idFac: noFac
+            },
+            success: function(json){
+                
+            },
+            error: function (error){
+                alert("Se agrego factura");
+            }
+        });
+    }
+
+    function detalleFac() {
+        // Crear un array para almacenar los datos de la tabla
+        var datos = [];
+
+        // Recorrer las filas de la tabla
+        $('#tabla tbody tr').each(function () {
+            // Obtener las celdas de la fila
+            var cantidad = $(this).find('td:nth-child(1)').text();
+            var idProducto = $(this).find('td:nth-child(2)').text();
+            var descripcion = $(this).find('td:nth-child(3)').text();
+            var precioUnitario = $(this).find('td:nth-child(4)').text();
+            var subtotal = $(this).find('td:nth-child(5)').text();
+
+            // Verificar si todas las celdas contienen datos antes de agregarlos al objeto
+            if (cantidad && descripcion && precioUnitario && subtotal) {
+                // Crear un objeto con los datos de la fila y agregarlo al array
+                var filaDatos = {
+                    cantidad: cantidad,
+                    id_producto: idProducto,
+                    descripcion: descripcion,
+                    precioUnitario: precioUnitario,
+                    subtotal: subtotal
+                };
+
+                datos.push(filaDatos);
+            }
+        });
+
+        for (var i = 0; i < datos.length; i++) {
+            var fila = datos[i];
+            var noFactura = $("#Factura").val();
+            var idProducto = fila.id_producto;
+            var cantidad = fila.cantidad;
+            var precioUnitario = fila.precioUnitario;
+            var subtotal = fila.subtotal;
+            $.ajax({
+                type: "POST",
+                url: "<?php echo site_url('VentaController/insertarDetalle');?>",
+                dataType: "json",
+                data:{
+                    factura: noFactura,
+                    producto: idProducto,
+                    cantidad: cantidad,
+                    precio: precioUnitario,
+                    total: subtotal
+                },
+                success: function(json){
+                    
+                },
+                error: function (error){
+                    alert("Se agrego factura");
+                }
+            });
+        }
+    }
 
     
 </script>
