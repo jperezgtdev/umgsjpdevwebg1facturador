@@ -23,7 +23,7 @@ function __construct()
             'nombre' => $this->input->post('nombre'),
             'estado' => $this->input->post('estado') ,  
             'fecha_creacion' => date('Y-m-d H:i:s'),
-            'usuario_creacion' => 'admon'
+            'usuario_creacion' => $this->session->userdata('usuario')
         );
     
         $this->Categoria_Model->insertarCategoria($data);
@@ -35,7 +35,7 @@ function __construct()
             'nombre' => $this->input->post('edit_nombre'),
             'estado' => $this->input->post('edit_estado'),
             'fecha_mod' => date('Y-m-d H:i:s'),
-            'usuario_mod' => 'admon'
+            'usuario_mod' => $this->session->userdata('usuario')
         );
 
         $id = $this-> input->post('id_categoria');

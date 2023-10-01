@@ -34,7 +34,7 @@ function __construct()
             'fk_rol' => $this->input->post('fk_rol')  ,  
             'estado' => $this->input->post('estado') ,  
             'fecha_creacion' => date('Y-m-d H:i:s'),
-            'usuario_creacion' => 'admon'
+            'usuario_creacion' => $this->session->userdata('usuario')
         );
     
         $this->usuarioModel->insertarUsuario($data);
@@ -50,7 +50,7 @@ function __construct()
             'fk_rol' => $this->input->post('edit_fk_rol')  ,  
             'estado' => $this->input->post('edit_estado')  ,
             'fecha_mod' => date('Y-m-d H:i:s'),
-            'usuario_mod' => 'admon'
+            'usuario_mod' => $this->session->userdata('usuario')
         );
 
         $id = $this-> input->post('id_usuario');
