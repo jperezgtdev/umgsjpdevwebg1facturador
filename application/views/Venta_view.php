@@ -1,3 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        label {
+            display: block; /* Hace que las etiquetas ocupen una línea completa */
+            margin-bottom: 5px; /* Agrega un espacio entre las etiquetas */
+            font-weight: bold; /* Hace que las etiquetas sean negritas */
+        }
+
+
+        /* Estilo para los campos de entrada (input) */
+        input[type="text"] {
+            width: 50%; /* Ajusta el ancho de los campos de entrada al 50% del contenedor */
+            padding: 5px; /* Agrega espacio interno para el contenido del campo */
+            margin-bottom: 10px; /* Agrega un espacio entre los campos */
+            border: 1px solid #ccc; /* Agrega un borde gris claro alrededor de los campos */
+            border-radius: 4px; /* Agrega bordes redondeados a los campos */
+        }
+
+        /* Estilo para los campos de entrada deshabilitados (disabled) */
+        input[type="text"][disabled] {
+            background-color: #f5f5f5; /* Cambia el color de fondo de los campos deshabilitados */
+        }
+        /* Estilo para las etiquetas <th> en el encabezado de la tabla */
+        thead th {
+            background-color: #00366e; /* Color azul similar al botón btn-primary */
+            color: #fff; /* Color del texto en blanco para contrastar con el fondo */
+            text-align: center; /* Alineación de texto al centro */
+            padding: 10px; /* Espacio interno alrededor del contenido del encabezado */
+            border: 1px solid #ccc; /* Borde alrededor del encabezado */
+            font-weight: bold; /* Texto en negritas */
+        }
+
+        /* Estilo para las etiquetas <th> ocultas */
+        thead th[hidden] {
+            display: none; /* Oculta las etiquetas <th> con el atributo hidden */
+        }
+
+        .fila-tabla {
+            background-color: #f9f9f9; /* Color de fondo de las filas */
+        }
+
+        /* Estilo para las celdas de botones en las filas de la tabla */
+        .fila-tabla .btn-eliminar {
+            background-color: #dc3545; /* Color de fondo del botón */
+            color: #fff; /* Color del texto en el botón */
+            border: none; /* Quita el borde del botón */
+            padding: 5px 10px; /* Espacio interno del botón */
+            cursor: pointer; /* Cambia el cursor al pasar por encima del botón */
+        }
+
+        /* Estilo para las celdas de botones en las filas de la tabla al pasar el cursor */
+        .fila-tabla .btn-eliminar:hover {
+            background-color: #c82333; /* Cambia el color de fondo del botón al pasar el cursor */
+        }
+
+    </style>
+</head>
+</html>
+
+
 <?php
 $this->load->view('templates/header');
 ?>
@@ -7,59 +69,65 @@ $this->load->view('templates/header');
             <h1>Venta</h1>
         </div>
         <div class="row">      
-                <div class="col-md-5">
+                <div class="col-md-6">
                     <br><br>
-                    <label for="NIT">NIT</label>
+                    <hr>
+                    <label for="NIT">NIT</label><br>
                     <input type="text" name="numNit" id="NIT">
                     <button type="button" value="Buscar" class="btn btn-primary"  id="btn-buscar" >Buscar</button>
                     <br>
+                    <br>
                     <div class="form-group">
                         <label for="fk_producto">Producto</label>    
-                        <select class="form-select" name="fk_producto" id="fk_producto" required style="width: 200px;" disabled>
+                        <select class="form-select" name="fk_producto" id="fk_producto" required style="width: 200px;"disabled>
                             <option value="0">Selecciona un producto</option>
                             <?php foreach($productos as $producto): ?>
                                 <option value="<?= $producto->id_producto; ?>"><?= $producto->nombre; ?></option>
                             <?php endforeach; ?>
                         </select>
+                        <hr>
                     </div>
-                    <br>
+                    
                     <div class="form-group">
                         <label for="unidades">Unidades</label>
                         <input type="text" class="form-control" name="unidades" id="unidades" required style="width: 200px;" required disabled>
                     </div>
                     <div class="form-group">
-                        <labebl for="costo">costo</labebl>
+                        <label for="costo">Costo</label>
                         <input type="text" class="form-control" name="costo" id="costo" required style="width: 200px;" required disabled>
                     </div>
-                    <br>
+                    
                     <div class="form-group">
                         <label for="V_unidades">Unidades Venta</label>
-                        <input type="number" class="form-control" name="V_unidades" id="V_unidades"  style="width: 200px;" >
+                        <input type="text" class="form-control" name="V_unidades" id="V_unidades"  style="width: 200px;" disabled>
                     </div>
-                    <br>
-                    <button  type="button" class="btn btn-primary" id ="btn-agregar">Agregar</button>
+                    
+                    <button  type="button" class="btn btn-primary" id ="btn-agregar" disabled>Agregar</button>
                 </div>
 
                 <div class="col-md-6">
                     <!--<form action="<?php echo site_url('VentaController/agregarFac'); ?>" method="POST">
                         <br><br>-->
-                            <label for="NombreCliente">Nombre</label>
-                            <input type="text" name="NombreCliente" id="NombreCliente"><br>
+                        <br>
+                        <h5>Datos del cliente</h5>
+                        <hr>
+                        <br>
+                            <label for="NombreCliente">Nombre</label><br>
+                            <input type="text" name="NombreCliente" id="NombreCliente" disabled><br>
 
-                            <label for="NitCliente">NIT</label>
-                            <input type="text" name="NitCliente" id="NitCliente"><br>
+                            <label for="NitCliente">NIT</label><br>
+                            <input type="text" name="NitCliente" id="NitCliente" disabled><br>
 
                             <input type="hidden" id="idcliente" name="idcliente"><br>
                             
                             <input type="hidden" name="id_factura" value=""> <!-- SE AGREGA LA FACTURA-->
 
-                            <label for="Factura">No.Factura</label>
+                            <label for="Factura">No.Factura</label><br>
                             <input type="text" name="Factura" id="Factura" disabled><br>
 
-                            <label for="Usuario">Usuario</label>
+                            <label for="Usuario">Usuario</label><br>
                             <input type="text" name="Usuario" id="Usuario" disabled><br>
-
-                        <br><br>
+                            <hr>
 
                         <div tabla-container>
                             <table  id="tabla">
@@ -83,12 +151,12 @@ $this->load->view('templates/header');
                             </table>
                         </div>
                     
-                        <br><br>
-                        <Label for="Total">Total</Label>
+                        <br>
+                        <Label for="Total">Total</Label><br>
                         <input type="text" name="Total" id="total" disabled>
                         <br><br>
                         <div>
-                            <input type="submit" class="btn btn-primary" value="Realizar Venta" id ="btn-genVenta"></input>
+                            <input type="submit" class="btn btn-primary" value="Realizar Venta" id ="btn-genVenta" disabled></input>
                         </div>
                     <!--</form>-->
                 </div>
@@ -97,6 +165,7 @@ $this->load->view('templates/header');
     </div>
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        
 
  <script>
         $(document).ready(function() {
@@ -124,6 +193,7 @@ $this->load->view('templates/header');
         }
         
         $('#btn-buscar').on('click', function () {
+            console.log("Botón de búsqueda clickeado");
             var NomNit = $('#NIT').val();
             //var Registro = new FormData();
             debugger;
@@ -142,6 +212,8 @@ $this->load->view('templates/header');
 
                     $("#Factura").val(generarCadenaAleatoria);
 
+                    // Habilitar el select de producto después de buscar
+                    $('#fk_producto').prop('disabled', false);
                 },
                 error: function(xhr) {
                     console.log("Error en la petición");
@@ -150,13 +222,50 @@ $this->load->view('templates/header');
         });
 
 
-$("#btn-agregar").click(function(){
+        // Detectar cambios en el select de producto
+        $('#fk_producto').on('change', function () {
+            var selectedValue = $(this).val();
+
+            // Verificar si el valor seleccionado es diferente de 0
+            if (selectedValue !== '0') {
+                // Habilitar el botón "Agregar"
+                $('#btn-agregar').prop('disabled', false);
+                $('#V_unidades').prop('disabled', false);
+                
+
+
+                // Habilitar el label de "Unidades"
+            } else {
+                // Deshabilitar el botón "Agregar"
+                $('#btn-agregar').prop('disabled', true);
+                $('#V_unidades').prop('disabled', true);
+
+            }
+        });
+
+        // Detectar el clic en el botón "Agregar"
+        $('#btn-agregar').on('click', function () {
+            $('#btn-genVenta').prop('disabled', false);
+        });
+
+
+
+
+        $("#btn-agregar").click(function(){
+    // Obtener el valor de unidades
+    var unidades = $("#V_unidades").val();
+
+    // Verificar si el campo unidades está vacío o no es un número válido
+    if (unidades === "" || isNaN(parseFloat(unidades)) || parseFloat(unidades) <= 0) {
+        alert("Por favor, intente de nuevo, dato no valido");
+        return; // Detener la ejecución si no es válido
+    }
+
+
     var producto = $("#fk_producto option:selected").text();
     var id_producto = $("#fk_producto").val();
     var precio = $("#costo").val();
-    var unidades = $("#V_unidades").val();
     var precioTotalProducto = parseFloat(precio) * parseFloat(unidades);
-    debugger;
 
     // Agregar a la tabla
     var newRow = $("<tr>");
@@ -168,13 +277,10 @@ $("#btn-agregar").click(function(){
     newRow.append($("<td><button class='btn btn-danger btn-eliminar' id='btnEliminar' onclick='eliminar()'>Eliminar</button></td>"));
     $("#tabla").append(newRow);
 
-   
     // Actualizar el Total
     var totalActual = parseFloat($("[name='Total']").val()) || 0;
     totalActual += precioTotalProducto;
     $("[name='Total']").val(totalActual);
-
-
 });
 
 
@@ -233,36 +339,16 @@ $("#fk_producto").change(function(){
         }
    });
 
-   $('#V_unidades').focus(function() {
-            $('#V_unidades').css({
-                "border-color": "" 
-            });
-            $('#V_unidades').val("");
-            $('#V_unidades').attr("placeholder", "");
-        });
+   $('#V_unidades').on('input', function () {
+    var inputValue = $(this).val();
 
+    // Comprobar si el valor ingresado es un número válido y mayor a cero
+    if (isNaN(inputValue) || parseFloat(inputValue) <= 0) {
+        // Si no es válido, establecer el valor del campo en vacío
+        $(this).val("");
+    }
+});
 
-    $('#btn-buscar').on('click', function () {
-        var NomNit = $('#NIT').val();
-        //var Registro = new FormData();
-        debugger;
-        $.ajax({
-            type: "GET",
-            url: "<?php echo site_url('VentaController/buscarCliente');?>",
-            dataType: "json",
-            data: {
-                opcion: NomNit
-            },
-            success: function(response) {
-                debugger;
-               $("#NombreCliente").val(response.respuesta[0].nombre);
-               $("#NitCliente").val(response.respuesta[0].nit);
-            },
-            error: function(xhr) {
-                console.log("Error en la petición");
-            }
-        });
-    });
 
     $("#btn-genVenta").off('click').on('click',function(){
         facturar();
