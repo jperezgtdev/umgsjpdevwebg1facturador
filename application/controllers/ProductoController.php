@@ -31,7 +31,7 @@ function __construct()
             'unidades' => $this->input->post('unidades'),
             'estado' => $this->input->post('estado'),
             'fecha_creacion' => date('Y-m-d H:i:s'),
-            'usuario_creacion' => 'admon'
+            'usuario_creacion' => $this->session->userdata('usuario')
         );
         
         $this->ProductoModel->insertarProducto($data);
@@ -41,14 +41,13 @@ function __construct()
 
     function guardarEdicion(){
         $data = array(
-            'id_producto' => $this->input->post('edit_id_producto'),
             'fk_categoria' => $this->input->post('edit_fk_categoria'),
             'nombre' => $this->input->post('edit_nombre'),
             'costo' => $this->input->post('edit_costo')  ,  
             'unidades' => $this->input->post('edit_unidades')  ,  
             'estado' => $this->input->post('edit_estado')  ,
             'fecha_mod' => date('Y-m-d H:i:s'),
-            'usuario_mod' => 'admon'
+            'usuario_mod' => $this->session->userdata('usuario')
         );
 
         $id = $this-> input->post('id_producto');

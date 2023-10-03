@@ -14,7 +14,7 @@ class ClienteController extends CI_Controller{
 		$this->data['resultados'] = $resultados;
 		$this->data['titulo'] = "Nuevo titulo";
 		$this->load->view('cliente_view', $this->data);
-	}
+	}    
 
     function insertar(){
         $data = array(
@@ -25,7 +25,7 @@ class ClienteController extends CI_Controller{
             'nit' => $this->input->post('nit'),
             'estado' => $this->input->post('estado'),
             'fecha_creacion' => date('Y-m-d H:i:s'),
-            'usuario_creacion' => 'admon'
+            'usuario_creacion' => $this->session->userdata('usuario')
         );
         
         $this->ClienteModel->insertarCliente($data);
@@ -41,7 +41,7 @@ class ClienteController extends CI_Controller{
             'nit' => $this->input->post('edit_nit'),
             'estado' => $this->input->post('edit_estado'),
             'fecha_mod' => date('Y-m-d H:i:s'),
-            'usuario_mod' => 'admon'
+            'usuario_mod' => $this->session->userdata('usuario')
         );
         
         $id = $this->input->post('Eid_cliente');
