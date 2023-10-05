@@ -12,13 +12,17 @@ function __construct()
 	}
 
     public function index(){
-        $categorias = $this->ProductoModel->get_categorias();
-        $this->data['categorias'] = $categorias;
-        
-		$resultados = $this->ProductoModel->getProductoData();
-		$this->data['resultados'] = $resultados;
-		$this->data['titulo'] = "Nuevo titulo";
-		$this->load->view('Producto_view', $this->data);
+        if(!$this->session->userdata('logged_in')){
+            redirect('controlador_login/index');
+        }else{
+            $categorias = $this->ProductoModel->get_categorias();
+            $this->data['categorias'] = $categorias;
+            
+            $resultados = $this->ProductoModel->getProductoData();
+            $this->data['resultados'] = $resultados;
+            $this->data['titulo'] = "Nuevo titulo";
+            $this->load->view('Producto_view', $this->data);
+        }
 	}
 
 

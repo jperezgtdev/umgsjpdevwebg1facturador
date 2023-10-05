@@ -12,8 +12,12 @@ function __construct()
 	}
 
     public function index() {
-        $data['facturas'] = $this->DetalleFacturaModel->DetalleFacturas();
-        $this->load->view('DetalleFacturaVista', $data);
+        if(!$this->session->userdata('logged_in')){
+            redirect('controlador_login/index');
+        }else{
+            $data['facturas'] = $this->DetalleFacturaModel->DetalleFacturas();
+            $this->load->view('DetalleFacturaVista', $data);
+        }
     }
 
     public function ver() {

@@ -11,11 +11,15 @@ class VentaController extends CI_Controller{
 
     public function index()
     {   
-        $nit = $this->input->post('numNit'); 
-        $data['cliente'] = $this->VentaModel->obtenerNombrePorNIT($nit); 
-        $data['productos'] = $this->VentaModel->get_productos();
-        $data['titulo'] = "Nuevo título";
-        $this->load->view('Venta_view', $data);
+        if(!$this->session->userdata('logged_in')){
+            redirect('controlador_login/index');
+        }else{
+            $nit = $this->input->post('numNit'); 
+            $data['cliente'] = $this->VentaModel->obtenerNombrePorNIT($nit); 
+            $data['productos'] = $this->VentaModel->get_productos();
+            $data['titulo'] = "Nuevo título";
+            $this->load->view('Venta_view', $data);
+        }
     }
 
     public function insertarEncabezado(){

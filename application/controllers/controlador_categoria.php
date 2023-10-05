@@ -11,8 +11,12 @@ function __construct()
 	}
 
     public function index(){
-        $data['resultados'] = $this->Categoria_Model->getCategoria();
-		$this->load->view('vista_categoria',$data);
+        if(!$this->session->userdata('logged_in')){
+            redirect('controlador_login/index');
+        }else{
+            $data['resultados'] = $this->Categoria_Model->getCategoria();
+    		$this->load->view('vista_categoria',$data);
+        }
 	}
 
     function insertar(){

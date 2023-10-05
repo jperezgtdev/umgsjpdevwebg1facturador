@@ -6,14 +6,19 @@ class ClienteController extends CI_Controller{
     function __construct()
 	{
 		parent::__construct();
+        $this->load->library('AuthFilter');
 		$this->load->model('ClienteModel');
 	}
 
     public function index(){
-		$resultados = $this->ClienteModel->getAllClient();
-		$this->data['resultados'] = $resultados;
-		$this->data['titulo'] = "Nuevo titulo";
-		$this->load->view('cliente_view', $this->data);
+        if(!$this->session->userdata('logged_in')){
+            redirect('controlador_login/index');
+        }else{
+            $resultados = $this->ClienteModel->getAllClient();
+            $this->data['resultados'] = $resultados;
+            $this->data['titulo'] = "Nuevo titulo";
+            $this->load->view('cliente_view', $this->data);
+        }
 	}    
 
     function insertar(){
