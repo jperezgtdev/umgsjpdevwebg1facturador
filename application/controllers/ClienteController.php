@@ -6,7 +6,6 @@ class ClienteController extends CI_Controller{
     function __construct()
 	{
 		parent::__construct();
-        $this->load->library('AuthFilter');
 		$this->load->model('ClienteModel');
 	}
 
