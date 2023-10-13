@@ -37,6 +37,10 @@ class controlador_login extends CI_Controller {
             );
             $this->session->set_userdata($newdata);
 
+            $this->session->set_tempdata('id_usuario', $user_data->id, 3600);
+            $this->session->set_tempdata('usuario', $user_data->usuario, 3600);
+            $this->session->set_tempdata('logged_in', TRUE, 3600);
+
             // Redirigir a la página de inicio después del inicio de sesión exitoso
             redirect('usuario');
         } else {

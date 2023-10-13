@@ -63,12 +63,11 @@
 <?php
 $this->load->view('templates/header');
 ?>
-
-    <div class="container">
-        <div class="d-flex justify-content-center">
-            <h1>Venta</h1>
-        </div>
-        <div class="row">      
+<div class="container">
+    <div class="card" style="margin-top: 10px; width: 760x;">
+        <div class="card-body">
+            <h1 style="text-align: center; font-weight: bold;">Venta</h1>
+            <div class="row">      
                 <div class="col-md-6">
                     <br><br>
                     <hr>
@@ -157,16 +156,18 @@ $this->load->view('templates/header');
                         <br><br>
                         <div>
                             <input type="submit" class="btn btn-primary" value="Realizar Venta" id ="btn-genVenta" disabled></input>
+                            <button type="button" class="btn btn-secondary" id="cancelar" disabled>Cancelar</button>
                         </div>
                     <!--</form>-->
                 </div>
 
+            </div>
         </div>
     </div>
+</div>
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         
-
  <script>
         $(document).ready(function() {
        
@@ -196,22 +197,23 @@ $this->load->view('templates/header');
             console.log("Botón de búsqueda clickeado");
             var NomNit = $('#NIT').val();
             //var Registro = new FormData();
-            debugger;
+            
             $.ajax({
                 type: "GET",
                 url: "<?php echo site_url('VentaController/buscarCliente');?>",
                 dataType: "json",
                 data: {
                     opcion: NomNit
-                },
+                }, 
                 success: function(response) {
-                    debugger;
+                    
                     $("#NombreCliente").val(response.respuesta[0].nombre);
                     $("#NitCliente").val(response.respuesta[0].nit);
                     $("#idcliente").val(response.respuesta[0].id_cliente);
-
+                    
                     $("#Factura").val(generarCadenaAleatoria);
-
+                    var usu = response.sesion;
+                    $("#Usuario").val(usu);
                     // Habilitar el select de producto después de buscar
                     $('#fk_producto').prop('disabled', false);
                 },
@@ -252,43 +254,50 @@ $this->load->view('templates/header');
 
 
         $("#btn-agregar").click(function(){
-    // Obtener el valor de unidades
-    var unidades = $("#V_unidades").val();
+            // Obtener el valor de unidades
+            var unidades = $("#V_unidades").val();
 
-    // Verificar si el campo unidades está vacío o no es un número válido
-    if (unidades === "" || isNaN(parseFloat(unidades)) || parseFloat(unidades) <= 0) {
-        alert("Por favor, intente de nuevo, dato no valido");
-        return; // Detener la ejecución si no es válido
-    }
+            // Verificar si el campo unidades está vacío o no es un número válido
+            if (unidades === "" || isNaN(parseFloat(unidades)) || parseFloat(unidades) <= 0) {
+                alert("Por favor, intente de nuevo, dato no valido");
+                return; // Detener la ejecución si no es válido
+            }
 
 
-    var producto = $("#fk_producto option:selected").text();
-    var id_producto = $("#fk_producto").val();
-    var precio = $("#costo").val();
-    var precioTotalProducto = parseFloat(precio) * parseFloat(unidades);
+            var producto = $("#fk_producto option:selected").text();
+            var id_producto = $("#fk_producto").val();
+            var precio = $("#costo").val();
+            var precioTotalProducto = parseFloat(precio) * parseFloat(unidades);
 
-    // Agregar a la tabla
-    var newRow = $("<tr>");
-    newRow.append($("<td>").text(unidades));
-    newRow.append($("<td hidden>").text(id_producto));
-    newRow.append($("<td>").text(producto));
-    newRow.append($("<td>").text(precio));
-    newRow.append($("<td>").text(precioTotalProducto));
-    newRow.append($("<td><button class='btn btn-danger btn-eliminar' id='btnEliminar' onclick='eliminar()'>Eliminar</button></td>"));
-    $("#tabla").append(newRow);
+            // Agregar a la tabla
+            var newRow = $("<tr>");
+            newRow.append($("<td>").text(unidades));
+            newRow.append($("<td hidden>").text(id_producto));
+            newRow.append($("<td>").text(producto));
+            newRow.append($("<td>").text(precio));
+            newRow.append($("<td>").text(precioTotalProducto));
+            newRow.append($("<td><button class='btn btn-danger btn-eliminar' id='btnEliminar' onclick='eliminar()'>Eliminar</button></td>"));
+            $("#tabla").append(newRow);
 
-    // Actualizar el Total
-    var totalActual = parseFloat($("[name='Total']").val()) || 0;
-    totalActual += precioTotalProducto;
-    $("[name='Total']").val(totalActual);
-});
+            // Actualizar el Total
+            var totalActual = parseFloat($("[name='Total']").val()) || 0;
+            totalActual += precioTotalProducto;
+            $("[name='Total']").val(totalActual);
+
+            $("#fk_producto").val(0);
+            $("#unidades").val("");
+            $("#costo").val("");
+            $("#V_unidades").val("");
+            $("#V_unidades").prop("disabled", true);
+            $("#cancelar").prop("disabled",false);
+        });
 
 
 function eliminar() {
 
     var row = $("#btnEliminar").closest("tr");
     var precio = parseFloat(row.find("td:eq(3)").text());
-    debugger;
+    
     // Restar el precio de la fila eliminada del total
     var totalActual = parseFloat($("[name='Total']").val()) || 0;
     totalActual -= precio;
@@ -328,7 +337,7 @@ $("#fk_producto").change(function(){
     $('#V_unidades').focusout(function(){
        var existencias=$('#unidades').val();
        var solicitadas=$('#V_unidades').val();
-       debugger;
+       
         console.log($('#V_unidades').val());
        if (parseInt(existencias)  < parseInt(solicitadas) ){
             $('#V_unidades').val("");
@@ -353,25 +362,35 @@ $("#fk_producto").change(function(){
     $("#btn-genVenta").off('click').on('click',function(){
         facturar();
         detalleFac();
+
+        $("#NombreCliente").val("");
+        $("#NitCliente").val("");
+        $("#Factura").val("");
+        $("#Usuario").val("");
+        $("#tabla").empty();
+        $("#total").val("");
+        $("#NIT").val("");
     });
 
     function facturar(){
         var dato = $("#idcliente").val();
         var noFac = $("#Factura").val();
-        debugger;
+        var usuario = $("#Usuario").val();
+        
         $.ajax({
             type: "POST",
             url: "<?php echo site_url('VentaController/insertarEncabezado');?>",
             dataType: "json",
             data:{
                 opcion: dato,
-                idFac: noFac
+                idFac: noFac,
+                usua: usuario
             },
             success: function(json){
                 
             },
             error: function (error){
-                alert("Se agrego factura");
+                alert("Se agrego factura No. " + noFac);
             }
         });
     }
@@ -388,7 +407,7 @@ $("#fk_producto").change(function(){
             var descripcion = $(this).find('td:nth-child(3)').text();
             var precioUnitario = $(this).find('td:nth-child(4)').text();
             var subtotal = $(this).find('td:nth-child(5)').text();
-
+            
             // Verificar si todas las celdas contienen datos antes de agregarlos al objeto
             if (cantidad && descripcion && precioUnitario && subtotal) {
                 // Crear un objeto con los datos de la fila y agregarlo al array
@@ -426,13 +445,26 @@ $("#fk_producto").change(function(){
                     
                 },
                 error: function (error){
-                    alert("Se agrego factura");
+                    
                 }
             });
         }
     }
 
-    
+    $("#cancelar").click(function(){
+        $("#NombreCliente").val("");
+        $("#NitCliente").val("");
+        $("#Factura").val("");
+        $("#Usuario").val("");
+        $("#tabla tbody tr").remove();
+        $("#total").val("");
+        $("#NIT").val("");
+        $("#fk_producto").prop("disabled", true);
+        $("#btn-agregar").prop("disabled", true);
+        $("#btn-genVenta").prop("disabled", true);
+        $("#cancelar").prop("disabled", true);
+    });
+
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 

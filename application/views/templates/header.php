@@ -129,12 +129,11 @@
               <li class="nav-item">
                 <a href="<?= site_url('DFacturaController/index')?>" class="nav-link">
                 <img src="<?= base_url('imagenes/detallefactura.png') ?>" style="width: 20px; height: 20px;">
-                  <p>Detalle de Facturas</p>
+                  <p>Reporte de Ventas</p>
                 </a>
               </li>
             </ul>
           </li>
-          <li class="nav-header">USUARIO</li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

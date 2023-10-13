@@ -25,12 +25,13 @@ class VentaController extends CI_Controller{
     public function insertarEncabezado(){
         $idCliente = (int)$this->input->post('opcion');
         $idFactura = $this->input->post('idFac');
+        $usu = $this->input->post('usua');
         $data = array(
             'id_factura' => $idFactura,
             'fk_cliente' => $idCliente,
             'fecha' => date('Y-m-d H:i:s'),
             'fecha_creacion' => date('Y-m-d H:i:s'),
-            'usuario_creacion' => 'admon',
+            'usuario_creacion' => $usu,
             'estado' => 1
         );
         $this->VentaModel->insertarEncabezadoFac($data);
@@ -72,8 +73,11 @@ class VentaController extends CI_Controller{
     {
         $opcion = $this->input->get('opcion');
         $resupuesta =$this->VentaModel->ClienteData($opcion);
+        $usuario = $this->session->userdata('usuario');
+        $sesion = $usuario;
         $response = array (
-            'respuesta'=>$resupuesta
+            'respuesta'=>$resupuesta,
+            'sesion'=>$sesion
         );
         header('Content-Type: application/json');
         echo json_encode($response);
