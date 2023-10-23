@@ -8,6 +8,8 @@
 function __construct()
 	{
 		parent::__construct();
+        require_once(APPPATH.'libraries/dompdf/autoload.inc.php');
+        $this->dompdf = new \Dompdf\Dompdf();
 		$this->load->model('DetalleFacturaModel');
 	}
 
@@ -74,6 +76,26 @@ function __construct()
     }
 
     function eliminarProducto(){
+
+    }
+
+    function facturaPDF($id_Factura){
+       // $data['encabezado']= $this->DetalleFacturaModel->obtenerEncabezado($id_Factura);
+        $data['detalles']= $this->DetalleFacturaModel->getDetalles($id_Factura);
+        $html = $this->load->view('factura_pdf', $data, true);
+        $this->dompdf->loadHtml($html);
+        $this->dompdf->setPaper('letter', 'portrait');
+        $this->dompdf->render();
+    
+        $output = $this->dompdf->output();
+        $pdfFileName = 'factura_' . $id_Factura . '.pdf';
+
+        // Enviar el contenido PDF al cliente
+    header('Content-type: application/pdf');
+    header("Content-Disposition: inline; filename=$pdfFileName");
+    header('Content-Transfer-Encoding: binary');
+    header('Accept-Ranges: bytes');
+    echo $output;
 
     }
 }

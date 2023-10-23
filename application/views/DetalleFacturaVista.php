@@ -158,7 +158,9 @@ $this->load->view('templates/header');
                 <td name="nfactura"><?php echo $factura->id_factura; ?></td>
                 <td><?php echo $factura->nombre; ?></td>
                 <td><?php echo $factura->fecha; ?></td>
-                <td><button  class="btn btn-primary btn-sm btn-ver" onclick="verdata()"  data-bs-toggle="modal" data-bs-target="#modalver"  data-id="<?php echo $factura->id_factura; ?>">Ver</button></td>
+                    <td>
+                        <a href="<?= site_url('DFacturaController/facturaPDF/' . $factura->id_factura); ?>" class="btn btn-primary btn-sm btn-ver"> Ver</a>
+                    </td>
                 <td><button class="btn btn-danger btn-sm btn-eliminar"   data-bs-toggle="modal" data-bs-target="#AnularModal"  data-id="<?php echo $factura->id_factura; ?>">Anular Factura</button></td>
               
             </tr>
